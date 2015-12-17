@@ -1,3 +1,4 @@
+
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
     local filename="$HOME/.pairs"
@@ -11,16 +12,7 @@ function pair() {
     
     if [ -z "$1" ]; then
         echo "You have the following <$total_lines> pairs in file <$filename>:"; echo ""
-
-        local i=0
-        
-        while read line 
-        do
-            echo [$((++i))] $line
-        done < $filename
-
-        echo ""
-        
+        __xp-mode-print-pairs
         return
     fi
     
@@ -42,4 +34,28 @@ function pair() {
     echo "Committer is now <`git config user.name`; `git config user.email`>"
 }
 
+function __xp-mode-bash-complete() {
+    echo ""
+    __xp-mode-print-pairs
+}
+
+function __xp-mode-filename() {
+    return "$HOME/.pairs"
+}
+
+function __xp-mode-print-pairs() {
+    local i=0
+
+    while read line 
+    do
+        echo [$((++i))] $line
+    done < "$HOME/.pairs"
+    
+    echo ""
+}
+
+# http://ss64.com/osx/complete.html
+complete -F __xp-mode-bash-complete pair
+
+# print completions: `complete -p | less`
 
