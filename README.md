@@ -2,11 +2,21 @@
 
 # Installation
 
+On a POSIXish system:
+
 ```
-curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source xp-mode.sh 
+curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source xp-mode.sh
 ```
 
 [Read what installer does](/install.sh)
+
+For a windows cmd prompt:
+
+```
+curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.bat
+curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.bat
+.\install.bat
+```
 
 # Configuration
 
@@ -30,7 +40,7 @@ Ben, Danny and Gareth ; gareth.keenan@aol.com
 Show your pairs by calling `pair` with no arguments:
 
 ```
-$ pair 
+$ pair
 You have the following <5> pairs in file </home/ben/.pairs>:
 
 [1] Ben Biddington; ben.biddington@gmail.com
