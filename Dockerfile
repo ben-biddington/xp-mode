@@ -1,4 +1,4 @@
-# sudo docker build ~/sauce/xp-mode -t xp-mode && sudo docker run -it xp-mode
+# sudo docker build . -t xp-mode && sudo docker run -it xp-mode
 
 FROM ubuntu
 
