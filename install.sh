@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo "Installing xp-mode to <$PWD>"
 
 file="xp-mode.sh"
