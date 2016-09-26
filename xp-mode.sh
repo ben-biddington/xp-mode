@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
