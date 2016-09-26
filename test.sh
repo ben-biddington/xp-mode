@@ -2,7 +2,7 @@
 
 sudo docker rm xp-mode-test
 
-sudo docker build . -t xp-mode && sudo docker run -itd --name xp-mode-test xp-mode
+sudo docker build . -qt xp-mode && sudo docker run -itd --name xp-mode-test xp-mode
 
 sudo docker cp . xp-mode-test:/
 #sudo docker exec xp-mode-test bash -c "cat install.sh | bash"
