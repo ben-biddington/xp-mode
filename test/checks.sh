@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Check that it touches .pairs
-
+#
+# (1) Check that it touches .pairs when missing
+#
 filename="$HOME/.pairs"
+
+cat install.sh | bash
 
 if [ ! -f $filename ]; then
     echo "Pairs file <$filename> exists? NO"
