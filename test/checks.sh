@@ -1,16 +1,16 @@
 #!/bin/bash
-
-#
-# (1) Check that it touches .pairs when missing
-#
 filename="$HOME/.pairs"
 
-cat install.sh | bash
+source "$(dirname $0)/support.sh"
 
-if [ ! -f $filename ]; then
-    echo "Pairs file <$filename> exists? NO"
-else
-    echo "Pairs file <$filename> exists? YES"
-fi
+echo ""
+echo "(1) Check that it touches .pairs when missing"
+echo ""
+
+pairsFileMustNotExist $filename
+
+cat install.sh | bash #&> /dev/null
+
+pairsFileMustExist $filename
 
 # Check that it contains the current git user as line 1
