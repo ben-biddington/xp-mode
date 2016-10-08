@@ -9,7 +9,7 @@ function pairsFileMustNotExist {
     debug "Checking that file <$1> is missing"
     
     if [ -f $1 ]; then
-        echo -e "\n\e[31mExpected file <$1> to be missing, but it is present \e[0m"
+        red "\n\e[31mExpected file <$1> to be missing, but it is present \e[0m"
         exit 1
     fi
 }
@@ -18,7 +18,19 @@ function pairsFileMustExist {
     debug "Checking that file <$1> is present"
     
     if [ ! -f $1 ]; then
-        echo -e "\n\e[31mExpected file <$1> to exist\e[0m"
+        red "\n\e[31mExpected file <$1> to exist\e[0m"
         exit 1
     fi
+}
+
+function title {
+    green "\n$1\n"
+}
+
+function green {
+    echo -e "\e[32m$1\e[0m"
+}
+
+function red {
+    echo -e "\e[32m$1\e[0m"
 }

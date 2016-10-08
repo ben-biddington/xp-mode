@@ -3,9 +3,7 @@ filename="$HOME/.pairs"
 
 source "$(dirname $0)/support.sh"
 
-echo ""
-echo "(1) Check that it touches .pairs when missing"
-echo ""
+title "(1) Check that it touches .pairs when missing"
 
 pairsFileMustNotExist $filename
 
