@@ -28,6 +28,12 @@ if [ ! -f $pairs_file ];
 then
     touch $pairs_file
     echo "Pairs file created at <$pairs_file>"
+
+    pair_1="`git config user.name`; `git config user.email`"
+    
+    echo $pair_1 > $pairs_file
+
+    echo "Entry <$pair_1> added to <$pairs_file>"
 else
     echo "Pairs file already exists at <$pairs_file>"
 fi

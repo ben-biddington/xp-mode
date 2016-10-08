@@ -11,4 +11,13 @@ cat install.sh | bash #&> /dev/null
 
 pairsFileMustExist $filename
 
-# Check that it contains the current git user as line 1
+title "(2) The .pairs file has current git user as entry number one"
+
+clobber $filename
+
+git config --global user.name "The Bizzz"
+git config --global user.email "the.emerald.bizz@gmail.com"
+
+cat install.sh | bash #&> /dev/null
+
+pairsFileMustInclude $filename "The Bizz; the.emerald.bizz@gmail.com"
