@@ -3,7 +3,7 @@
 if [ ! -z $BUILD_SERVER ]; then
     bash -c "$@ /bin/bash ./test/checks.sh"
     exit 0
-else echo "Running locally, using container. Set \`BUILD_SERVER\` to any value to run in the current directory <`pwd`>."
+else echo "Running in container. Set \`BUILD_SERVER\` to any value to run in the current directory <`pwd`>."
 fi
 
 sudo docker rm xp-mode-test &> /dev/null

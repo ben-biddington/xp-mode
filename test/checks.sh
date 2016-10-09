@@ -32,3 +32,5 @@ title "(3) It skips touching .pairs if it already exists"
   cat install.sh | bash #&> /dev/null
 
   pairsFileMustInclude $filename "Anyone Else; anyone.else@gmail.com"
+
+pending "It skips updating the bash profile if already modified?"
