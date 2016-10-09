@@ -21,3 +21,5 @@ git config --global user.email "the.emerald.bizz@gmail.com"
 cat install.sh | bash #&> /dev/null
 
 pairsFileMustInclude $filename "The Bizzz; the.emerald.bizz@gmail.com"
+
+pending "It skips touching .pairs if it already exists"

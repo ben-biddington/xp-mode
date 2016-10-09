@@ -1,7 +1,7 @@
 # colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting#bash_tipscolors_and_formatting_ansivt100_control_sequences
 function debug {
     if [ ! -z $DEBUG ]; then
-        echo -e "\e[33m[DEBUG] $1\e[0m"
+        yellow "[DEBUG] $1"
     fi
 }
 
@@ -33,6 +33,12 @@ function green {
 
 function red {
     echo -e "\e[31m$1\e[0m"
+}
+
+function pending { yellow "\n[PENDING] $1\n"; }
+
+function yellow {
+    echo -e "\e[33m$@\e[0m"
 }
 
 function clobber {
