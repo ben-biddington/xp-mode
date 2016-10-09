@@ -32,4 +32,6 @@ test "(3) It skips touching .pairs if it already exists"
 
   pairsFileMustInclude $filename "Anyone Else; anyone.else@gmail.com"
 
+pending "(4) The info command tells you where your pairs file is"
 pending "It skips updating the bash profile if already modified?"
+
