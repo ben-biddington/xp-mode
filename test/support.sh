@@ -51,7 +51,9 @@ function pairsFileMustInclude {
     
     first_line=`head -n 1 $file`
 
-    if [ "$first_line" != "$expected" ]; then
+    debug "Comparing <$first_line> with <$expected>"
+    
+    if [ ! "$first_line" == "$expected" ]; then
        red "\nExpected <$first_line> to equal <$expected>"
     fi
 }
