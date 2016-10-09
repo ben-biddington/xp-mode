@@ -23,6 +23,11 @@ function pairsFileMustExist {
     fi
 }
 
+function test {
+    before_each
+    title "$@"
+}
+
 function title {
     green "\n$1\n"
 }

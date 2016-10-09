@@ -3,11 +3,14 @@ filename="$HOME/.pairs"
 
 source "$(dirname $0)/support.sh"
 
-# Before
-git config --global user.name "The Bizzz"
-git config --global user.email "the.emerald.bizz@gmail.com"
+function before_each {
+    git config --global user.name "The Bizzz"
+    git config --global user.email "the.emerald.bizz@gmail.com"
 
-title "(1) Check that it touches .pairs when missing"
+    clobber $filename
+}
+
+test "(1) It touches .pairs file when missing"
 
   pairsFileMustNotExist $filename
 
@@ -15,17 +18,15 @@ title "(1) Check that it touches .pairs when missing"
 
   pairsFileMustExist $filename
 
-title "(2) The .pairs file has current git user as entry number one"
-
-  clobber $filename
+test "(2) The .pairs file has current git user added"
 
   cat install.sh | bash #&> /dev/null
 
   pairsFileMustInclude $filename "The Bizzz; the.emerald.bizz@gmail.com"
 
-title "(3) It skips touching .pairs if it already exists"
+test "(3) It skips touching .pairs if it already exists"
 
-  clobber $filename
+  pairsFileMustNotExist $filename
 
   echo "Anyone Else; anyone.else@gmail.com" > $filename
 
