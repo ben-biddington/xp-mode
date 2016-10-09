@@ -16,13 +16,13 @@ test "(1) It touches .pairs file when missing"
 
   cat install.sh | bash #&> /dev/null
 
-  pairsFileMustExist $filename
+  fileMustExist $filename
 
 test "(2) The .pairs file has current git user added"
 
   cat install.sh | bash #&> /dev/null
 
-  pairsFileMustInclude $filename "The Bizzz; the.emerald.bizz@gmail.com"
+  fileMustInclude $filename "The Bizzz; the.emerald.bizz@gmail.com"
 
 test "(3) It skips touching .pairs if it already exists"
 
@@ -30,7 +30,7 @@ test "(3) It skips touching .pairs if it already exists"
 
   cat install.sh | bash #&> /dev/null
 
-  pairsFileMustInclude $filename "Anyone Else; anyone.else@gmail.com"
+  fileMustInclude $filename "Anyone Else; anyone.else@gmail.com"
 
 pending "The info command tells you where your pairs file is"
 pending "It skips updating the bash profile if already modified?"

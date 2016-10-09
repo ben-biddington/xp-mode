@@ -5,7 +5,7 @@ function debug {
     fi
 }
 
-function pairsFileMustNotExist {
+function fileMustNotExist {
     debug "Checking that file <$1> is missing"
     
     if [ -f $1 ]; then
@@ -14,7 +14,7 @@ function pairsFileMustNotExist {
     fi
 }
 
-function pairsFileMustExist {
+function fileMustExist {
     debug "Checking that file <$1> is present"
     
     if [ ! -f $1 ]; then
@@ -54,7 +54,7 @@ function clobber {
 }
 
 
-function pairsFileMustInclude {
+function fileMustInclude {
     file=$1
     expected=$2
     
