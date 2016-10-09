@@ -1,3 +1,5 @@
+[![Status](https://api.travis-ci.org/ben-biddington/xp-mode.svg)](https://travis-ci.org/ben-biddington/xp-mode)
+
 `xp-mode` makes it easier to record what pairs worked on what commits.
 
 # Installation
