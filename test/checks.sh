@@ -26,9 +26,7 @@ test "(2) The .pairs file has current git user added"
 
 test "(3) It skips touching .pairs if it already exists"
 
-  pairsFileMustNotExist $filename
-
-  echo "Anyone Else; anyone.else@gmail.com" > $filename
+  echo "Anyone Else; anyone.else@gmail.com" >> $filename
 
   cat install.sh | bash #&> /dev/null
 
