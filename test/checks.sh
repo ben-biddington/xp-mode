@@ -12,7 +12,7 @@ function before_each {
 
 test "(1) It touches .pairs file when missing"
 
-  pairsFileMustNotExist $filename
+  fileMustNotExist $filename
 
   cat install.sh | bash #&> /dev/null
 

@@ -53,7 +53,6 @@ function clobber {
     fi
 }
 
-
 function fileMustInclude {
     file=$1
     expected=$2
