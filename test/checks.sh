@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -e
+
 filename="$HOME/.pairs"
 
 source "$(dirname $0)/support.sh"
