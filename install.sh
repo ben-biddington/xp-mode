@@ -14,7 +14,7 @@ fi
 
 echo "Downloading <$url> to <$install_dir>"
 
-curl -so $install_dir $url 
+curl -So $install_dir $url 
 
 filename=$install_dir/xp-mode.sh
 profile=$HOME/.bash_profile
