@@ -7,7 +7,7 @@
 On a POSIXish system:
 
 ```
-curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source xp-mode.sh
+curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash 
 ```
 
 [Read what installer does](/install.sh)

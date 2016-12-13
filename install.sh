@@ -37,3 +37,5 @@ then
 else
     echo "Pairs file already exists at <$pairs_file>"
 fi
+
+source $filename
