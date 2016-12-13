@@ -7,17 +7,17 @@ echo "Installing xp-mode to <$install_dir>"
 file="xp-mode.sh"
 url="https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.sh"
 pairs_file=$HOME/.pairs
-
-if [ -f $file ]; then
-    rm $file
-fi
-
-echo "Downloading <$url> to <$install_dir>"
-
-curl -So $install_dir $url 
-
 filename=$install_dir/xp-mode.sh
 profile=$HOME/.bash_profile
+
+if [ -f $filename ]; then
+	echo "Deleting file at <$filename>"
+    rm $filename
+fi
+
+echo "Downloading <$url> to <$filename>"
+
+curl -s $url > $filename
 
 echo "# Load xp-mode" >> $profile
 echo "source "$filename"" >> $profile
