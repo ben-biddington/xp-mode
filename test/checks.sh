@@ -39,7 +39,7 @@ test "(4) It puts 'xp-mode.sh' in your home directory"
 
   cat install.sh | bash #&> /dev/null
 
-  fileMustExist '~/xp-mode.sh'
+  fileMustExist "$HOME/xp-mode.sh"
 
 pending "The info command tells you where your pairs file is"
 pending "It skips updating the bash profile if already modified?"
