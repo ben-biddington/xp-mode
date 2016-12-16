@@ -35,6 +35,12 @@ test "(3) It skips touching .pairs if it already exists"
 
   fileMustInclude $filename "Anyone Else; anyone.else@gmail.com"
 
+test "(4) It puts 'xp-mode.sh' in your home directory"
+
+  cat install.sh | bash #&> /dev/null
+
+  fileMustExist '~/xp-mode.sh'
+
 pending "The info command tells you where your pairs file is"
 pending "It skips updating the bash profile if already modified?"
 
