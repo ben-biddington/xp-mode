@@ -3,6 +3,7 @@
 set -e
 
 filename="$HOME/.pairs"
+peopleFilename="$HOME/.people"
 
 source "$(dirname $0)/support.sh"
 
@@ -11,6 +12,7 @@ function before_each {
     git config --global user.email "the.emerald.bizz@gmail.com"
 
     clobber $filename
+    clobber $peopleFilename
 }
 
 test "(1) It touches .pairs file when missing"
@@ -41,6 +43,14 @@ test "(4) It puts 'xp-mode.sh' in your home directory"
 
   fileMustExist "$HOME/xp-mode.sh"
 
+test "(5) It touches .people file when missing"
+
+  fileMustNotExist $peopleFilename
+
+  SKIP_DOWNLOAD=1 bash install.sh #&> /dev/null
+
+  fileMustExist $peopleFilename
+  
 pending "The info command tells you where your pairs file is"
 pending "It skips updating the bash profile if already modified?"
 
