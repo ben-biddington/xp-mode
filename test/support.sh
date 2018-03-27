@@ -23,6 +23,19 @@ function fileMustExist {
     fi
 }
 
+function gitAuthorMustEqual {
+    if [ "$GIT_AUTHOR_NAME" != "$1" ]; then
+        red "\nExpected GIT_AUTHOR_NAME environment variabe to be <$1>, got <$GIT_AUTHOR_NAME>"
+        exit 1
+    fi
+
+    if [ "$GIT_AUTHOR_EMAIL" != "$2" ]; then
+        red "\nExpected GIT_AUTHOR_EMAIL environment variabe to be <$2>, got <$GIT_AUTHOR_EMAIL>"
+        exit 1
+    fi
+}
+
+
 function test {
     before_each
     title "$@"
