@@ -4,3 +4,5 @@ FROM ubuntu
 
 RUN apt-get update
 RUN apt-get install -y git curl tree
+
+VOLUME ["./xp-mode"]

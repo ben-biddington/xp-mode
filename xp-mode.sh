@@ -18,6 +18,10 @@ function pair() {
     fi
     
     local number=$(($1<1?1:$1))
+
+    if [ $number -gt $total_lines ]; then
+        number=1
+    fi
     
     local result=`cat $filename | sed ""$number"q;d"`
 
@@ -25,9 +29,10 @@ function pair() {
     local git_author_email=`echo $result | cut -d ";" -f 2 | sed 's/^[ \t]*//;s/[ \t]*$//'`
     local pair_initials=`echo $result | cut -d ";" -f 3 | sed 's/^[ \t]*//;s/[ \t]*$//'`
 
+    
     export GIT_AUTHOR_NAME=$git_author_name
     export GIT_AUTHOR_EMAIL=$git_author_email
-    
+        
     echo "Set GIT_AUTHOR_NAME=$git_author_name"
     echo "Set GIT_AUTHOR_EMAIL=$git_author_email"
 
