@@ -1,7 +1,15 @@
 #!/bin/bash
 
 function __xp-mode-is-known-person {
-    cat ~/.people | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l
+    local count=`cat ~/.people | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
+    
+    echo $count
+}
+
+function __xp-mode-get-person-email {
+    local record=`cat ~/.people | grep -Eir "^$1" -`
+    local email=`echo $record | cut -d ';' -f 3`
+    echo $email
 }
 
 function __xp-mode-dynamic-pair {
@@ -21,13 +29,20 @@ function __xp-mode-dynamic-pair {
 
         if [ $(__xp-mode-is-known-person $element) = "1" ]; then
             groupName="$groupName, $element"
+        elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
+            echo "The person <$element> is duplicated in $filename:"
+            cat "$filename"
+            exit 1
         else
-            echo "Unknown person <$element> in file $filename"
-            return
+            echo "Unknown person <$element> in file $filename:"
+            cat "$filename"
+            exit 1
         fi
     done
-    
-    __xp-mode-export "$groupName" "lisa@gmail.com"
+
+    local lastName=${arrayOfNames[-1]}
+
+    __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
     
     return
 }
