@@ -1,7 +1,33 @@
 #!/bin/bash
 
+function __xp-mode-is-known-person {
+    cat ~/.people | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l
+}
+
 function __xp-mode-dynamic-pair {
-    __xp-mode-export "Ben, Denny and Lisa" "lisa@gmail.com"
+    local arrayOfNames
+    
+    IFS=',' read -r -a arrayOfNames <<< "$1"
+    local filename="$HOME/.people"
+    local x=`echo $1 | cut -d "," -f 1`
+    local names=`cat $filename | cut -d ";" -f 1`
+    local namesList=`echo "$names" | tr '\n' ', '`
+
+    local groupName="`cat $filename | head -n 1 | cut -d ";" -f 1`"
+
+    for element in "${arrayOfNames[@]}"
+    do
+        #echo "Grepping for $element in $namesList: $(__xp-mode-is-known-person $element)"
+
+        if [ $(__xp-mode-is-known-person $element) = "1" ]; then
+            groupName="$groupName, $element"
+        else
+            echo "Unknown person <$element> in file $filename"
+            return
+        fi
+    done
+    
+    __xp-mode-export "$groupName" "lisa@gmail.com"
     
     return
 }
@@ -13,8 +39,6 @@ function pair() {
        return
     fi
     
-    local filename="$HOME/.pairs"
-
     if [ ! -f $filename ]; then
         echo "Config file <$filename> is missing. Exiting."
         return

@@ -23,4 +23,14 @@ test "(1) select a pair by using names"
 
   pair "Denny,Lisa"
 
-  gitAuthorMustEqual "Ben, Denny and Lisa" "lisa@gmail.com"
+  gitAuthorMustEqual "Ben, Denny, Lisa" "lisa@gmail.com"
+
+  pair "Lisa"
+
+  gitAuthorMustEqual "Ben, Lisa" "lisa@gmail.com"
+
+test "(2) it fails when name is not recognised"
+
+  result=`pair "Malcolm"`
+
+  mustMatch "Unknown person" "$result"

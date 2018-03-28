@@ -17,7 +17,6 @@ if [ $TEST != "" ]; then
     echo "Running single test file <$TEST>"
     sudo docker exec xp-mode-test bash -c "$@ /bin/bash $TEST"
 else
-
     for file in ./test/*checks.sh
     do
         sudo docker exec xp-mode-test bash -c "$@ /bin/bash $file"

@@ -36,6 +36,15 @@ function gitAuthorMustEqual {
 }
 
 
+function mustMatch {
+    local expected=$1
+    local actual=$2
+
+    if [[ ! "$actual" =~ "$expected" ]]; then
+        red "Expected <$actual> to match pattern <$expected>"
+    fi
+}
+
 function test {
     before_each
     title "$@"
