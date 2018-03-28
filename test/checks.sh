@@ -19,13 +19,15 @@ test "(1) It touches .pairs file when missing"
 
   fileMustNotExist $filename
 
-  cat install.sh | bash #&> /dev/null
-
+  SKIP_DOWNLOAD=1 bash install.sh
+  
   fileMustExist $filename
 
 test "(2) The .pairs file has current git user added"
 
-  cat install.sh | bash #&> /dev/null
+  SKIP_DOWNLOAD=1 bash install.sh
+
+  git config --global --list
 
   fileMustInclude $filename "The Bizzz; the.emerald.bizz@gmail.com"
 

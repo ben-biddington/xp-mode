@@ -20,6 +20,8 @@ if [ -z $SKIP_DOWNLOAD ]; then
     echo "Downloading <$url> to <$filename>"
 
     curl -s $url > $filename
+else
+    cp xp-mode.sh $filename
 fi
 
 echo "# Load xp-mode" >> $profile
@@ -32,7 +34,7 @@ then
     touch $pairs_file
     echo "Pairs file created at <$pairs_file>"
 
-    pair_1="`git config user.name`; `git config user.email`"
+    pair_1="`git config --global user.name`; `git config --global user.email`"
     
     echo $pair_1 > $pairs_file
 
