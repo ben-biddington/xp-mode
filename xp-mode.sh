@@ -8,8 +8,6 @@ function __xp-mode-dynamic-pair {
 
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
-    local valid='^0-9$'
-
     if [[ ! "$1" =~ [0-9] ]]; then
         __xp-mode-dynamic-pair "$1"
        return
