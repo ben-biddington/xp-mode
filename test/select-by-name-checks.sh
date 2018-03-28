@@ -19,8 +19,8 @@ function before_each {
     source xp-mode.sh
 }
 
-pending "(1) select a pair by using names"
+test "(1) select a pair by using names"
 
   pair "Denny,Lisa"
 
-  gitAuthorMustEqual "Ben, Dennay and Lisa" "lisa@gmail.com"
+  gitAuthorMustEqual "Ben, Denny and Lisa" "lisa@gmail.com"

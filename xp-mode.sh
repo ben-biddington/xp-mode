@@ -1,7 +1,20 @@
 #!/bin/bash
 
+function __xp-mode-dynamic-pair {
+    __xp-mode-export "Ben, Denny and Lisa" "lisa@gmail.com"
+    
+    return
+}
+
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
+    local valid='^0-9$'
+
+    if [[ ! "$1" =~ [0-9] ]]; then
+        __xp-mode-dynamic-pair "$1"
+       return
+    fi
+    
     local filename="$HOME/.pairs"
 
     if [ ! -f $filename ]; then
@@ -29,14 +42,17 @@ function pair() {
     local git_author_email=`echo $result | cut -d ";" -f 2 | sed 's/^[ \t]*//;s/[ \t]*$//'`
     local pair_initials=`echo $result | cut -d ";" -f 3 | sed 's/^[ \t]*//;s/[ \t]*$//'`
 
-    
-    export GIT_AUTHOR_NAME=$git_author_name
-    export GIT_AUTHOR_EMAIL=$git_author_email
-        
-    echo "Set GIT_AUTHOR_NAME=$git_author_name"
-    echo "Set GIT_AUTHOR_EMAIL=$git_author_email"
+    __xp-mode-export "$git_author_name" "$git_author_email"
+}
 
-    echo "Author is now <$git_author_name; $git_author_email>"
+function __xp-mode-export {
+    export GIT_AUTHOR_NAME=$1
+    export GIT_AUTHOR_EMAIL=$2
+        
+    echo "Set GIT_AUTHOR_NAME=$1"
+    echo "Set GIT_AUTHOR_EMAIL=$2"
+
+    echo "Author is now <$1; $2>"
     echo "Committer is now <`git config user.name`; `git config user.email`>"
 }
 
