@@ -35,4 +35,3 @@ test "(2) invalid index uses first"
   pair 1000
 
   gitAuthorMustEqual "The Bizzz" "the.emerald.bizz@gmail.com"
-
