@@ -48,3 +48,5 @@ test "it fails when name is not recognised"
   result=`pair "Malcolm"`
 
   mustMatch "Unknown person" "$result"
+
+pending "it does nothing when no arguments supplied"

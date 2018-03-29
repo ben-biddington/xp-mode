@@ -49,6 +49,10 @@ function __xp-mode-dynamic-pair {
 
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
+    if [[ "$1" = "" ]]; then
+       return
+    fi
+    
     if [[ ! "$1" =~ [0-9] ]]; then
         __xp-mode-dynamic-pair "$1"
        return

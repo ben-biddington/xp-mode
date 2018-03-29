@@ -45,6 +45,12 @@ function mustMatch {
     fi
 }
 
+function mustExitOkay {
+    if [[ ! "$?" = 0 ]]; then
+        red "Expected exit code <0>, got <$?>"
+    fi
+}
+
 function test {
     before_each
     title "$@"
