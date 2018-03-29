@@ -15,7 +15,7 @@ sudo docker build . -qt xp-mode &> /dev/null && sudo docker run -itd --name xp-m
 
 sudo docker cp . xp-mode-test:/ 
 
-if [ $TEST != "" ]; then
+if [[ $TEST != "" ]]; then
     echo "Running single test file <$TEST>"
     sudo docker exec xp-mode-test bash -c "$@ /bin/bash $TEST"
 else
