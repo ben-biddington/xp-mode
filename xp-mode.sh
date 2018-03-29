@@ -64,6 +64,8 @@ function pair() {
        return
     fi
 
+    local filename="$HOME/.pairs"
+
     if [ ! -f $filename ]; then
         echo "Config file <$filename> is missing. Exiting."
         return
