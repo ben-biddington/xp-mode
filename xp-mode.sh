@@ -42,8 +42,10 @@ function __xp-mode-dynamic-pair {
         fi
     done
 
-    local lastName=${arrayOfNames[-1]}
-
+    local numberOfNames="${#arrayOfNames[@]}"
+    
+    local lastName=${arrayOfNames[numberOfNames - 1]}
+     
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
     
     return
