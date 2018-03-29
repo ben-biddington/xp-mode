@@ -25,8 +25,6 @@ function __xp-mode-dynamic-pair {
 
     for element in "${arrayOfNames[@]}"
     do
-        #echo "Grepping for $element in $namesList: $(__xp-mode-is-known-person $element)"
-
         if [ $(__xp-mode-is-known-person $element) = "1" ]; then
             groupName="$groupName, $element"
         elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
