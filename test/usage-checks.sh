@@ -8,9 +8,10 @@ peopleFilename="$HOME/.people"
 source "$(dirname $0)/support.sh"
 
 function before_each {
-    git config --global user.name "The Bizzz"
-    git config --global user.email "the.emerald.bizz@gmail.com"
-
+    clobber $peopleFilename
+    clobber $filename
+    
+    echo "The Bizzz; the.emerald.bizz@gmail.com" >> $filename
     echo "Ben and Richard; ben@gmail.com" >> $filename
 
     source xp-mode.sh

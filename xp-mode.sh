@@ -12,6 +12,10 @@ function __xp-mode-get-person-email {
     echo $email
 }
 
+function __xp-mode-is-numeric {
+    echo "$1" | grep -Eir "^[-0-9]+$" - | wc -l
+}
+
 function __xp-mode-dynamic-pair {
     local arrayOfNames
     
@@ -50,12 +54,14 @@ function pair() {
     if [[ "$1" = "" ]]; then
        return
     fi
+
+    local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
     
-    if [[ ! "$1" =~ [0-9] ]]; then
-        __xp-mode-dynamic-pair "$1"
+    if [[ "$argumentIsNumeric" -eq "0" ]]; then
+       __xp-mode-dynamic-pair "$1"
        return
     fi
-    
+
     if [ ! -f $filename ]; then
         echo "Config file <$filename> is missing. Exiting."
         return
