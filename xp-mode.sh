@@ -53,13 +53,9 @@ function __xp-mode-dynamic-pair {
 
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
-    if [[ "$1" = "" ]]; then
-       return
-    fi
-
     local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
     
-    if [[ "$argumentIsNumeric" -eq "0" ]]; then
+    if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
        __xp-mode-dynamic-pair "$1"
        return
     fi
