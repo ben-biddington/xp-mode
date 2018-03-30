@@ -49,4 +49,4 @@ test "it fails when name is not recognised"
 
   mustMatch "Unknown person" "$result"
 
-pending "it does nothing when no arguments supplied"
+pending "it writes the full names to so we can read it from git hook and write contributors into commit"
