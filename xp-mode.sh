@@ -34,11 +34,11 @@ function __xp-mode-dynamic-pair {
         elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
             echo "The person <$element> is duplicated in $filename:"
             cat "$filename"
-            exit 1
+            return
         else
             echo "Unknown person <$element> in file $filename:"
             cat "$filename"
-            exit 1
+            return
         fi
     done
 
@@ -120,6 +120,7 @@ function __xp-mode-print-pairs() {
     
     echo ""
 }
+
 
 # http://ss64.com/osx/complete.html
 complete -F __xp-mode-bash-complete pair
