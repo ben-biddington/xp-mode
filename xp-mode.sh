@@ -8,7 +8,7 @@ function __xp-mode-is-known-person {
 
 function __xp-mode-get-person-email {
     local record=`cat ~/.people | grep -Eir "^$1" -`
-    local email=`echo $record | cut -d ';' -f 3`
+    local email=`echo $record | cut -d ';' -f 2`
     echo $email
 }
 
