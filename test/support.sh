@@ -1,8 +1,8 @@
 # colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting#bash_tipscolors_and_formatting_ansivt100_control_sequences
 set -e
 
-filename="$HOME/.xp-mode/.pairs"
-peopleFilename="$HOME/.xp-mode/.people"
+filename="$HOME/.xp-mode/pairs"
+peopleFilename="$HOME/.xp-mode/people"
 
 function debug {
     if [ ! -z $DEBUG ]; then

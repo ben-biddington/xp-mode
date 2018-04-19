@@ -50,8 +50,8 @@ test "(5) It touches .people file when missing"
 
 test "(6) It moves ~/.pairs and ~/.people to ~/.xp-mode/ if it is present"
 
-  echo "A" > "$HOME/.pairs"
-  echo "B" > "$HOME/.people"
+  echo "A" > $filename
+  echo "B" > $peopleFilename
   
   SKIP_DOWNLOAD=1 bash install.sh #&> /dev/null
 

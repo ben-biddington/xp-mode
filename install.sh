@@ -8,9 +8,9 @@ file="xp-mode.sh"
 url="https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.sh"
 home=$HOME/.xp-mode
 original_pairs_file=$HOME/.pairs
-pairs_file=$home/.pairs
+pairs_file=$home/pairs
 original_people_file=$HOME/.people
-people_file=$home/.people
+people_file=$home/people
 filename=$install_dir/xp-mode.sh
 profile=$HOME/.bash_profile
 
