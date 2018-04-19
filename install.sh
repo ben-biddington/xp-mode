@@ -65,4 +65,4 @@ else
     echo "People file already exists at <$people_file>"
 fi
 
-source $file
+source $HOME/$file
