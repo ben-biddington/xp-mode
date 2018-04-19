@@ -1,10 +1,5 @@
 #!/bin/bash
 
-set -e
-
-filename="$HOME/.pairs"
-peopleFilename="$HOME/.people"
-
 source "$(dirname $0)/support.sh"
 
 function before_each {
@@ -52,6 +47,19 @@ test "(5) It touches .people file when missing"
   SKIP_DOWNLOAD=1 bash install.sh #&> /dev/null
 
   fileMustExist $peopleFilename
+
+test "(6) It moves ~/.pairs and ~/.people to ~/.xp-mode/ if it is present"
+
+  echo "A" > "$HOME/.pairs"
+  echo "B" > "$HOME/.people"
+  
+  SKIP_DOWNLOAD=1 bash install.sh #&> /dev/null
+
+  fileMustNotExist "$HOME/.pairs"
+  fileMustNotExist "$HOME/.people"
+
+  fileMustEqual "A" $filename
+  fileMustEqual "B" $peopleFilename
   
 pending "The info command tells you where your pairs file is"
 pending "It skips updating the bash profile if already modified?"

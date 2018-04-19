@@ -1,10 +1,5 @@
 #!/bin/bash
 
-set -e
-
-filename="$HOME/.pairs"
-peopleFilename="$HOME/.people"
-
 source "$(dirname $0)/support.sh"
 
 function before_each {

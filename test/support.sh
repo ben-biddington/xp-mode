@@ -1,4 +1,9 @@
 # colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting#bash_tipscolors_and_formatting_ansivt100_control_sequences
+set -e
+
+filename="$HOME/.xp-mode/.pairs"
+peopleFilename="$HOME/.xp-mode/.people"
+
 function debug {
     if [ ! -z $DEBUG ]; then
         yellow "[DEBUG] $1"
@@ -10,6 +15,20 @@ function fileMustNotExist {
     
     if [ -f $1 ]; then
         red "\nExpected file <$1> to be missing, but it is present"
+        exit 1
+    fi
+}
+
+function fileMustEqual {
+    local expected=$1
+    local file=$2
+
+    fileMustExist $file
+
+    local actual=$(cat $file)
+
+    if [[ ! $expected = $actual ]]; then
+        red "\nExpected the contents of file <$file> to be: \n\n$expected\n\nGot:\n\n$actual"
         exit 1
     fi
 }

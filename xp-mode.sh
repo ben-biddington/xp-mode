@@ -1,14 +1,15 @@
 #!/bin/bash
 
 function __xp-mode-is-known-person {
-    local count=`cat ~/.people | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
+    local count=`cat ~/.xp-mode/.people | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
     
     echo $count
 }
 
 function __xp-mode-get-person-email {
-    local record=`cat ~/.people | grep -Eir "^$1" -`
+    local record=`cat ~/.xp-mode/.people | grep -Eir "^$1" -`
     local email=`echo $record | cut -d ';' -f 2`
+
     echo $email
 }
 
@@ -20,7 +21,7 @@ function __xp-mode-dynamic-pair {
     local arrayOfNames
     
     IFS=',' read -r -a arrayOfNames <<< "$1"
-    local filename="$HOME/.people"
+    local filename="$HOME/.xp-mode/.people"
     local x=`echo $1 | cut -d "," -f 1`
     local names=`cat $filename | cut -d ";" -f 1`
     local namesList=`echo "$names" | tr '\n' ', '`
@@ -60,7 +61,7 @@ function pair() {
        return
     fi
 
-    local filename="$HOME/.pairs"
+    local filename="$HOME/.xp-mode/.pairs"
 
     if [ ! -f $filename ]; then
         echo "Config file <$filename> is missing. Exiting."
@@ -107,7 +108,7 @@ function __xp-mode-bash-complete() {
 }
 
 function __xp-mode-filename() {
-    return "$HOME/.pairs"
+    return "$HOME/.xp-mode/.pairs"
 }
 
 function __xp-mode-print-pairs() {
@@ -116,7 +117,7 @@ function __xp-mode-print-pairs() {
     while read line 
     do
         echo [$((++i))] $line
-    done < "$HOME/.pairs"
+    done < "$HOME/.xp-mode/.pairs"
     
     echo ""
 }

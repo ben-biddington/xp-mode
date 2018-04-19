@@ -6,10 +6,26 @@ echo "Installing xp-mode to <$install_dir>"
 
 file="xp-mode.sh"
 url="https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.sh"
-pairs_file=$HOME/.pairs
-people_file=$HOME/.people
+home=$HOME/.xp-mode
+original_pairs_file=$HOME/.pairs
+pairs_file=$home/.pairs
+original_people_file=$HOME/.people
+people_file=$home/.people
 filename=$install_dir/xp-mode.sh
 profile=$HOME/.bash_profile
+
+if [ ! -d $home ]; then
+    mkdir $home
+fi
+
+if [ -f $original_pairs_file ]; then
+    mv $original_pairs_file $home
+fi
+
+if [ -f $original_people_file ]; then
+    mv $original_people_file $home
+fi
+
 
 if [ -z $SKIP_DOWNLOAD ]; then
     if [ -f $filename ]; then
@@ -29,8 +45,7 @@ echo "source "$filename"" >> $profile
 
 echo "Updated <$profile>"
 
-if [ ! -f $pairs_file ];
-then
+if [ ! -f $pairs_file ]; then
     touch $pairs_file
     echo "Pairs file created at <$pairs_file>"
 
@@ -43,8 +58,7 @@ else
     echo "Pairs file already exists at <$pairs_file>"
 fi
 
-if [ ! -f $people_file ];
-then
+if [ ! -f $people_file ]; then
     touch $people_file
     echo "People file created at <$people_file>"
 else
