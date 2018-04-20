@@ -1,4 +1,7 @@
 #!/bin/bash
+failures="test-failures"
+
+: > $failures
 
 if [ ! -z $BUILD_SERVER ]; then
     for file in ./test/*checks.sh
@@ -21,9 +24,31 @@ else
     else
         for file in ./test/*checks.sh
         do
+            touch .tmp
+
+            sudo docker exec xp-mode-test bash -c "$@ : rm $failures"
             sudo docker exec xp-mode-test bash -c "$@ /bin/bash $file"
+            sudo docker cp xp-mode-test:$failures .tmp
+
+            cat .tmp >> $failures
+
+            rm -f .tmp
         done
     fi
     sudo docker stop xp-mode-test &> /dev/null
     sudo docker rm xp-mode-test &> /dev/null
 fi
+
+source "test/support.sh"
+
+if [[ "$(cat $failures | wc -l)" -gt "0" ]]; then
+    red "\n\nTESTS FAILED\n"
+    
+    cat "$failures"
+    exit 1
+else
+    green "\nAll tests passed\n"
+    exit 0
+fi
+
+

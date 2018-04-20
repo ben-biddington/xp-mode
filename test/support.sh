@@ -3,6 +3,8 @@ set -e
 
 filename="$HOME/.xp-mode/pairs"
 peopleFilename="$HOME/.xp-mode/people"
+failures="test-failures"
+name=""
 
 function debug {
     if [ ! -z $DEBUG ]; then
@@ -14,8 +16,7 @@ function fileMustNotExist {
     debug "Checking that file <$1> is missing"
     
     if [ -f $1 ]; then
-        red "\nExpected file <$1> to be missing, but it is present"
-        exit 1
+        fail "\nExpected file <$1> to be missing, but it is present"
     fi
 }
 
@@ -28,8 +29,7 @@ function fileMustEqual {
     local actual=$(cat $file)
 
     if [[ ! $expected = $actual ]]; then
-        red "\nExpected the contents of file <$file> to be: \n\n$expected\n\nGot:\n\n$actual"
-        exit 1
+        fail "\nExpected the contents of file <$file> to be: \n\n$expected\n\nGot:\n\n$actual"
     fi
 }
 
@@ -37,8 +37,7 @@ function fileMustExist {
     debug "Checking that file <$1> is present"
     
     if [ ! -f $1 ]; then
-        red "\nExpected file <$1> to exist"
-        exit 1
+        fail "\nExpected file <$1> to exist"
     fi
 }
 
@@ -50,33 +49,31 @@ function gitAuthorMustBeUnset {
 
 function gitAuthorMustEqual {
     if [ "$GIT_AUTHOR_NAME" != "$1" ]; then
-        red "\nExpected GIT_AUTHOR_NAME environment variabe to be <$1>, got <$GIT_AUTHOR_NAME>"
-        exit 1
+        fail "\nExpected GIT_AUTHOR_NAME environment variabe to be <$1>, got <$GIT_AUTHOR_NAME>"
     fi
 
     if [ "$GIT_AUTHOR_EMAIL" != "$2" ]; then
-        red "\nExpected GIT_AUTHOR_EMAIL environment variabe to be <$2>, got <$GIT_AUTHOR_EMAIL>"
-        exit 1
+        fail "\nExpected GIT_AUTHOR_EMAIL environment variabe to be <$2>, got <$GIT_AUTHOR_EMAIL>"
     fi
 }
-
 
 function mustMatch {
     local expected=$1
     local actual=$2
 
     if [[ ! "$actual" =~ "$expected" ]]; then
-        red "Expected <$actual> to match pattern <$expected>"
+        fail "Expected <$actual> to match pattern <$expected>"
     fi
 }
 
 function mustExitOkay {
     if [[ ! "$?" = 0 ]]; then
-        red "Expected exit code <0>, got <$?>"
+        fail "Expected exit code <0>, got <$?>"
     fi
 }
 
 function test {
+    name="$@"
     before_each
     title "$@"
 }
@@ -90,6 +87,7 @@ function green {
 }
 
 function fail {
+    echo -e "$0 -- $name\n\t$1" >> $failures
     red "$1"
 }
 
