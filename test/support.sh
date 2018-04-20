@@ -42,6 +42,12 @@ function fileMustExist {
     fi
 }
 
+function gitAuthorMustBeUnset {
+    if [ ! -z "$GIT_AUTHOR_NAME" ]; then
+        fail "Expected the <GIT_AUTHOR_NAME> env var to be unset, but it has value <$GIT_AUTHOR_NAME>"
+    fi
+}
+
 function gitAuthorMustEqual {
     if [ "$GIT_AUTHOR_NAME" != "$1" ]; then
         red "\nExpected GIT_AUTHOR_NAME environment variabe to be <$1>, got <$GIT_AUTHOR_NAME>"
@@ -81,6 +87,10 @@ function title {
 
 function green {
     echo -e "\e[32m$1\e[0m"
+}
+
+function fail {
+    red "$1"
 }
 
 function red {

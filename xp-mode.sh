@@ -20,6 +20,11 @@ function __xp-mode-is-numeric {
 }
 
 function __xp-mode-dynamic-pair {
+    if [ "$1" = "solo" ]; then
+        __xp-mode-export
+        return
+    fi
+
     local arrayOfNames
     
     IFS=',' read -r -a arrayOfNames <<< "$1"
@@ -57,7 +62,7 @@ function __xp-mode-dynamic-pair {
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
     local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
-    
+
     if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
        __xp-mode-dynamic-pair "$1"
        return
