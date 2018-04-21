@@ -64,5 +64,3 @@ if [ ! -f $people_file ]; then
 else
     echo "People file already exists at <$people_file>"
 fi
-
-source $HOME/$file

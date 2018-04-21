@@ -61,8 +61,6 @@ function __xp-mode-dynamic-pair {
     local lastName=${arrayOfNames[numberOfNames - 1]}
      
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
-    
-    return
 }
 
 # Usage: $ source xp-mode.sh && pair 1
@@ -130,7 +128,6 @@ function __xp-mode-print-pairs() {
     
     echo ""
 }
-
 
 # http://ss64.com/osx/complete.html
 complete -F __xp-mode-bash-complete pair
