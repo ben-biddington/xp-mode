@@ -18,6 +18,8 @@ else
 
     sudo docker cp . xp-mode-test:/ 
 
+    sudo docker exec xp-mode-test bash -c "$@ rm -r .git"
+
     if [[ $TEST != "" ]]; then
         echo "Running single test file <$TEST>"
         sudo docker exec xp-mode-test bash -c "$@ /bin/bash $TEST"
@@ -26,7 +28,6 @@ else
         do
             touch .tmp
 
-            sudo docker exec xp-mode-test bash -c "$@ : rm $failures"
             sudo docker exec xp-mode-test bash -c "$@ /bin/bash $file"
             sudo docker cp xp-mode-test:$failures .tmp
 

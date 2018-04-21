@@ -27,7 +27,7 @@ function __xp-mode-is-numeric {
 
 function __xp-mode-dynamic-pair {
     if [ "$1" = "solo" ]; then
-        __xp-mode-export
+        __xp-mode-export "$(git config user.name)" "$(git config user.email)"
         return
     fi
 
