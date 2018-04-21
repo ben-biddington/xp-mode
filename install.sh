@@ -6,14 +6,12 @@ echo "Installing xp-mode to <$install_dir>"
 
 file="xp-mode.sh"
 url="https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.sh"
-config_url="https://raw.githubusercontent.com/ben-biddington/xp-mode/master/config.sh"
 home=$HOME/.xp-mode
 original_pairs_file=$HOME/.pairs
 pairs_file=$home/pairs
 original_people_file=$HOME/.people
 people_file=$home/people
 filename=$install_dir/xp-mode.sh
-config_filename=$install_dir/config.sh
 profile=$HOME/.bash_profile
 
 if [ ! -d $home ]; then
@@ -38,10 +36,6 @@ if [ -z $SKIP_DOWNLOAD ]; then
     echo "Downloading <$url> to <$filename>"
 
     curl -s $url > $filename
-
-    echo "Downloading <$config_url> to <$config_filename>"
-
-    curl -s $config_url > $config_filename
 else
     cp xp-mode.sh $filename
 fi
