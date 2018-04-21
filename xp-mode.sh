@@ -1,6 +1,12 @@
 #!/bin/bash
 
-source "config.sh"
+function __xp-mode-pairs-file-name {
+    echo "$HOME/.xp-mode/pairs"
+}
+
+function __xp-mode-people-file-name {
+    echo "$HOME/.xp-mode/people"
+}
 
 function __xp-mode-is-known-person {
     local count=`cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
