@@ -7,7 +7,7 @@ failures="test-failures"
 name=""
 
 function debug {
-    if [ ! -z $DEBUG ]; then
+    if [ -z $DEBUG ]; then
         yellow "[DEBUG] $1"
     fi
 }
