@@ -27,6 +27,19 @@ function fileMustEqual {
     fi
 }
 
+function fileMustContain {
+    local expectedLine=$1
+    local file=$2
+
+    fileMustExist $file
+
+    local matches=$(grep -Eir $expectedLine $file | wc -l)
+
+    if [[ $matches -ne 1 ]]; then
+        fail "\nExpected\n\n$(cat $file)\n\nto contain:\n\n$expectedLine"
+    fi
+}
+
 function fileMustExist {
     debug "Checking that file <$1> is present"
     

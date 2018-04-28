@@ -53,13 +53,17 @@ function __xp-mode-dynamic-pair {
     local x=`echo $1 | cut -d "," -f 1`
     local names=`cat $filename | cut -d ";" -f 1`
     local namesList=`echo "$names" | tr '\n' ', '`
+    local currentEmailsFilename="$HOME/.xp-mode/current"
 
+    :> $currentEmailsFilename
+    
     local groupName="`cat $filename | head -n 1 | cut -d ";" -f 1`"
 
     for element in "${arrayOfNames[@]}"
     do
         if [ $(__xp-mode-is-known-person $element) = "1" ]; then
             groupName="$groupName, $element"
+            echo $(__xp-mode-get-person-email $element) >> $currentEmailsFilename
         elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
             echo "The person <$element> is duplicated in $filename:"
             cat "$filename"
