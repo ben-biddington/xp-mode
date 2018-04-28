@@ -25,9 +25,18 @@ function __xp-mode-is-numeric {
     echo "$1" | grep -Eir "^[-0-9]+$" - | wc -l
 }
 
+function __xp-mode-install-git-hooks {
+    touch .git/hooks/pre-commit
+}
+
 function __xp-mode-dynamic-pair {
     if [ "$1" = "solo" ]; then
         __xp-mode-export "$(git config user.name)" "$(git config user.email)"
+        return
+    fi
+
+    if [ "$1" = "hooks" ]; then
+        __xp-mode-install-git-hooks
         return
     fi
 

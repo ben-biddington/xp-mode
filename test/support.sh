@@ -6,12 +6,6 @@ peopleFilename="$HOME/.xp-mode/people"
 failures="test-failures"
 name=""
 
-function debug {
-    if [ -z $DEBUG ]; then
-        yellow "[DEBUG] $1"
-    fi
-}
-
 function fileMustNotExist {
     debug "Checking that file <$1> is missing"
     
@@ -82,6 +76,12 @@ function title {
     green "\n$1\n"
 }
 
+function debug {
+    if [ ! -z $DEBUG ]; then
+        yellow "[DEBUG] $1"
+    fi
+}
+
 function green {
     echo -e "\e[32m$1\e[0m"
 }
@@ -121,4 +121,19 @@ function fileMustInclude {
     if [ ! "$first_line" == "$expected" ]; then
        red "\nExpected <$first_line> to equal <$expected>"
     fi
+}
+
+function before_each
+{
+  :
+}
+
+function after_each
+{
+  :
+}
+
+function fn_exists()
+{
+    type $1 | grep -q 'shell function'
 }
