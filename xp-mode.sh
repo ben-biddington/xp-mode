@@ -26,7 +26,13 @@ function __xp-mode-is-numeric {
 }
 
 function __xp-mode-install-git-hooks {
-    touch .git/hooks/pre-commit
+    local f="$PWD/.git/hooks/pre-commit"
+    
+    if  [ ! -f $f ]; then
+        touch $f
+    else
+        echo "You already have a pre-commit hook present at <$f>, skipping"
+    fi
 }
 
 function __xp-mode-dynamic-pair {

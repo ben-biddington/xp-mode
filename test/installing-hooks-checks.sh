@@ -29,8 +29,19 @@ function after_each {
 }
 
 test "it makes a hook file"
+
   pair hooks
 
   fileMustExist "$tempDir/.git/hooks/pre-commit"
 
+  after_each
+
+test "it skips if it one is already present"
+
+  touch "$tempDir/.git/hooks/pre-commit"
+
+  result=$(pair hooks)
+
+  mustMatch "You already have a pre-commit hook" "$result"
+  
   after_each

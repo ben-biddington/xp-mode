@@ -55,6 +55,10 @@ function mustMatch {
     local expected=$1
     local actual=$2
 
+    if [[ -z $2 ]]; then
+        fail "\`mustMatch\`: No actual value supplied, it should be the second argument."
+    fi
+
     if [[ ! "$actual" =~ "$expected" ]]; then
         fail "Expected <$actual> to match pattern <$expected>"
     fi
