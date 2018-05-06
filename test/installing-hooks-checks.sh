@@ -32,16 +32,16 @@ test "it makes a hook file"
 
   pair hooks
 
-  fileMustExist "$tempDir/.git/hooks/pre-commit"
+  fileMustExist "$tempDir/.git/hooks/commit-msg"
 
   after_each
 
 test "it skips if it one is already present"
 
-  touch "$tempDir/.git/hooks/pre-commit"
+  touch "$tempDir/.git/hooks/commit-msg"
 
   result=$(pair hooks)
 
-  mustMatch "You already have a pre-commit hook" "$result"
+  mustMatch "You already have a commit-msg hook" "$result"
   
   after_each

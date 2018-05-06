@@ -26,12 +26,12 @@ function __xp-mode-is-numeric {
 }
 
 function __xp-mode-install-git-hooks {
-    local f="$PWD/.git/hooks/pre-commit"
+    local f="$PWD/.git/hooks/commit-msg"
     
     if  [ ! -f $f ]; then
         touch $f
     else
-        echo "You already have a pre-commit hook present at <$f>, skipping"
+        echo "You already have a commit-msg hook present at <$f>, skipping"
     fi
 }
 
