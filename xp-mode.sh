@@ -27,8 +27,13 @@ function __xp-mode-is-numeric {
 
 function __xp-mode-install-git-hooks {
     local f="$PWD/.git/hooks/commit-msg"
+
+    if [ "$2" = "-d" ]; then
+        rm -f $f
+        return
+    fi
     
-    if  [ ! -f $f ]; then
+    if [ ! -f $f ]; then
         touch $f; chmod +x $f
 
     cat << 'EOF' > $f
@@ -62,7 +67,7 @@ function __xp-mode-dynamic-pair {
     fi
 
     if [ "$1" = "hooks" ]; then
-        __xp-mode-install-git-hooks
+        __xp-mode-install-git-hooks "$@"
         return
     fi
 
@@ -110,7 +115,7 @@ function pair() {
     local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
 
     if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
-       __xp-mode-dynamic-pair "$1"
+       __xp-mode-dynamic-pair $@
        return
     fi
 
