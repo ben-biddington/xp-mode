@@ -8,6 +8,10 @@ function before_each {
 
     clobber $peopleFilename
 
+    echo "Alan; alan@gmail.com"     >> $peopleFilename
+    echo "Darren; darren@gmail.com" >> $peopleFilename
+    echo "Wanda; wanda@gmail.com"   >> $peopleFilename
+    
     tempDir=`mktemp -d -p "$DIR"`
 
     SKIP_DOWNLOAD=1 bash install.sh
@@ -31,10 +35,6 @@ test "it adds a message to your commit"
 
   $(pair hooks)
 
-  echo "Alan; alan@gmail.com"   >> $peopleFilename
-  echo "Darren; darren@gmail.com" >> $peopleFilename
-  echo "Wanda; wanda@gmail.com"   >> $peopleFilename
-  
   pair Darren,Wanda
 
   echo "No forks please" >> README.md
@@ -48,6 +48,23 @@ test "it adds a message to your commit"
 
 Co-authored-by: <darren@gmail.com>
 Co-authored-by: <wanda@gmail.com>"
+  mustBe "$expected" "$theCommitMessage"
+  
+  after_each
+
+test "it does not add message when no pair has been set"
+
+  $(pair hooks)
+
+  echo "No forks please" >> README.md
+
+  git add README.md
+  git commit -am "Push to master"
+
+  theCommitMessage="$(git log --format=%B -n 1)"
+
+  expected="Push to master"
+  
   mustBe "$expected" "$theCommitMessage"
   
   after_each
