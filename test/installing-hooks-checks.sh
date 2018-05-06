@@ -45,3 +45,13 @@ test "it skips if it one is already present"
   mustMatch "You already have a commit-msg hook" "$result"
   
   after_each
+
+test "use the \`hooks -d\` command to remove hooks"
+
+  pair hooks
+
+  pair hooks -d
+
+  fileMustNotExist "$tempDir/.git/hooks/commit-msg"
+
+  after_each
