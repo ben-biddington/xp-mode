@@ -29,7 +29,11 @@ function __xp-mode-install-git-hooks {
     local f="$PWD/.git/hooks/commit-msg"
     
     if  [ ! -f $f ]; then
-        touch $f
+        touch $f; chmod +x $f
+
+        text='commitMsg="$1"; echo "" >> $commitMsg; for email in $(cat "$HOME/.xp-mode/current"); do echo "Co-authored-by: <$email>" >> $commitMsg; done;'
+
+        echo $text >> $f
     else
         echo "You already have a commit-msg hook present at <$f>, skipping"
     fi
@@ -59,8 +63,6 @@ function __xp-mode-dynamic-pair {
 
     local names=()
     
-
-
     for element in "${arrayOfNames[@]}"
     do
         if [ $(__xp-mode-is-known-person $element) = "1" ]; then

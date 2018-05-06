@@ -64,6 +64,19 @@ function gitAuthorMustEqual {
     fi
 }
 
+function mustBe {
+    local expected="${1##*( )}" #${var##*( )}
+    local actual=$2
+
+    if [[ -z $2 ]]; then
+        fail "\`mustMatch\`: No actual value supplied, it should be the second argument."
+    fi
+
+    if [[ ! "$actual" = "$expected" ]]; then
+        fail "Expected:\n\n$expected\n\nGot:\n\n$actual"
+    fi
+}
+
 function mustMatch {
     local expected=$1
     local actual=$2
