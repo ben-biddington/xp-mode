@@ -41,7 +41,7 @@ function __xp-mode-install-git-hooks {
         echo "" >> $commitMsg 
 
         for email in $(cat "$file"); do 
-          echo "Co-authored-by: <$email>" >> $commitMsg
+          echo "Co-authored-by: Mob <$email>" >> $commitMsg
         done; 
      fi; 
 EOF
