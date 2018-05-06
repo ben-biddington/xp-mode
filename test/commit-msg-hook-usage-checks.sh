@@ -6,17 +6,17 @@ function before_each {
     git config --global user.name "Ben"
     git config --global user.email "ben@gmail.com"
 
-    clobber $peopleFilename
-
-    echo "Alan; alan@gmail.com"     >> $peopleFilename
-    echo "Darren; darren@gmail.com" >> $peopleFilename
-    echo "Wanda; wanda@gmail.com"   >> $peopleFilename
-    
     tempDir=`mktemp -d -p "$DIR"`
 
     SKIP_DOWNLOAD=1 bash install.sh
     
     source xp-mode.sh
+
+    clobber $peopleFilename;
+
+    echo "Alan; alan@gmail.com"     >> $peopleFilename
+    echo "Darren; darren@gmail.com" >> $peopleFilename
+    echo "Wanda; wanda@gmail.com"   >> $peopleFilename
     
     cd $tempDir
 
@@ -56,15 +56,17 @@ test "it does not add message when no pair has been set"
 
   $(pair hooks)
 
+  rm "$HOME/.xp-mode/current"
+
   echo "No forks please" >> README.md
 
-  git add README.md
+  git add README.md 
   git commit -am "Push to master"
 
   theCommitMessage="$(git log --format=%B -n 1)"
 
-  expected="Push to master"
-  
-  mustBe "$expected" "$theCommitMessage"
-  
+  mustBe "Push to master" "$theCommitMessage"
+
   after_each
+
+  pending "Same when current file is empty"
