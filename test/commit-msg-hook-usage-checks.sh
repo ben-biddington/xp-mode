@@ -42,8 +42,8 @@ function commit {
 
     echo "No forks please" >> README.md
 
-    `git add README.md`
-    git commit -am "$message"
+    $(git add README.md)
+    $(git commit -am "$message")
 }
 
 test "it adds a message to your commit"
