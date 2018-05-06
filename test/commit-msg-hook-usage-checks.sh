@@ -31,25 +31,35 @@ function after_each {
     debug "Current directory is now <$(pwd)>"
 }
 
+function lastCommitMessageMustBe {
+    theCommitMessage="$(git log --format=%B -n 1)"
+
+    mustBe "$1" "$theCommitMessage"
+}
+  
+function commit {
+    message=$1
+
+    echo "No forks please" >> README.md
+
+    git add README.md 
+    git commit -am "$message"
+}
+
 test "it adds a message to your commit"
 
   $(pair hooks)
 
   pair Darren,Wanda
-
-  echo "No forks please" >> README.md
-
-  git add README.md
-  git commit -am "Push to master"
-
-  theCommitMessage="$(git log --format=%B -n 1)"
-
+  
+  commit "Push to master"
+  
   expected="Push to master
 
 Co-authored-by: <darren@gmail.com>
 Co-authored-by: <wanda@gmail.com>"
-  
-  mustBe "$expected" "$theCommitMessage"
+
+  lastCommitMessageMustBe "$expected"
   
   after_each
 
@@ -57,17 +67,22 @@ test "it does not add message when no pair has been set"
 
   $(pair hooks)
 
-  rm "$HOME/.xp-mode/current"
+  clobber "$HOME/.xp-mode/current"
 
-  echo "No forks please" >> README.md
+  commit "Push to master"
 
-  git add README.md 
-  git commit -am "Push to master"
-
-  theCommitMessage="$(git log --format=%B -n 1)"
-
-  mustBe "Push to master" "$theCommitMessage"
+  lastCommitMessageMustBe "Push to master"
 
   after_each
 
-  pending "Same when current file is empty"
+test "it does not add message when \`current\` file is empty"
+
+  $(pair hooks)
+
+  clobber "$HOME/.xp-mode/current"; touch "$HOME/.xp-mode/current"
+
+  commit "Push to master"
+
+  lastCommitMessageMustBe "Push to master"
+
+  after_each
