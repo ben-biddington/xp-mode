@@ -51,7 +51,11 @@ EOF
 }
 
 function __xp-mode-dynamic-pair {
+    local currentEmailsFilename="$HOME/.xp-mode/current"
+    
     if [ "$1" = "solo" ]; then
+        if [ -f $currentEmailsFilename ]; then rm $currentEmailsFilename; fi
+        
         __xp-mode-export "$(git config user.name)" "$(git config user.email)"
         return
     fi
@@ -68,7 +72,6 @@ function __xp-mode-dynamic-pair {
     local x=`echo $1 | cut -d "," -f 1`
     local names=`cat $filename | cut -d ";" -f 1`
     local namesList=`echo "$names" | tr '\n' ', '`
-    local currentEmailsFilename="$HOME/.xp-mode/current"
 
     :> $currentEmailsFilename
 

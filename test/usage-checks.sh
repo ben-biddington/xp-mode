@@ -44,13 +44,5 @@ test "(3) no args prints pairs file"
 
   mustMatch "You have the following" "$result"
 
-test "(4) \`pair solo\` sets author to committer"
-
-  pair 1 
-
-  pair solo
-
-  gitAuthorMustEqual "The Bizzz" "the.emerald.bizz@gmail.com"
-
 
   

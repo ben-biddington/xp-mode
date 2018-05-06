@@ -59,3 +59,13 @@ test "records email addresses in a file"
   fileMustContain "lisa@gmail.com"  "$HOME/.xp-mode/current"
 
   pending "Allow spaces after commas"
+
+test "\`pair solo\` sets author to committer and deletes current authors"
+
+  pair 1 
+
+  pair solo
+
+  gitAuthorMustEqual "Ben Biddington" "ben@gmail.com"
+
+  fileMustNotExist "$HOME/.xp-mode/current"
