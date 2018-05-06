@@ -31,8 +31,18 @@ function __xp-mode-install-git-hooks {
     if  [ ! -f $f ]; then
         touch $f; chmod +x $f
 
-cat << 'EOF' > $f
-file="$HOME/.xp-mode/current"; if [ -f "$file" ]; then commitMsg="$1"; echo "" >> $commitMsg; for email in $(cat "$file"); do echo "Co-authored-by: <$email>" >> $commitMsg; done; fi;
+    cat << 'EOF' > $f
+      file="$HOME/.xp-mode/current"
+
+      if [ -f "$file" ]; then 
+        commitMsg="$1"
+
+        echo "" >> $commitMsg 
+
+        for email in $(cat "$file"); do 
+          echo "Co-authored-by: <$email>" >> $commitMsg
+        done; 
+     fi; 
 EOF
         
     else
