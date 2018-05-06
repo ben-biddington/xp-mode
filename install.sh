@@ -40,9 +40,13 @@ else
     cp xp-mode.sh $filename
 fi
 
-echo "source "$filename" # xp-mode" >> $profile
+touch $profile
 
-echo "Updated <$profile>"
+if [[ $(grep -Eir "# xp-mode" "$profile" | wc -l) -eq 0 ]]; then
+    echo "source "$filename" # xp-mode" >> $profile
+
+    echo "Updated <$profile>"
+fi
 
 if [ ! -f $pairs_file ]; then
     touch $pairs_file
