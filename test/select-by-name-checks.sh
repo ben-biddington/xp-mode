@@ -18,23 +18,23 @@ function before_each {
 
 test "select a pair by using names"
 
-  pair "Denny,Lisa"
+  pair "Ben,Denny,Lisa"
 
   gitAuthorMustEqual "Ben, Denny, Lisa" "lisa@gmail.com"
 
-test "it always puts the first entry in the people file in first"
+test "it just uses the names you supply" # Could use the current configured user.nane, but that often is full name
   
   pair "Lisa"
 
-  gitAuthorMustEqual "Ben, Lisa" "lisa@gmail.com"
+  gitAuthorMustEqual "Lisa" "lisa@gmail.com"
 
 test "it uses the email address for the last person in the list"
 
-  pair "Lisa,Denny"
+  pair "Ben,Lisa,Denny"
 
   gitAuthorMustEqual "Ben, Lisa, Denny" "denny@gmail.com"
 
-  pair "Lisa,Mark"
+  pair "Ben,Lisa,Mark"
 
   gitAuthorMustEqual "Ben, Lisa, Mark" "mark@gmail.com"
   
@@ -57,3 +57,5 @@ test "records email addresses in a file"
   fileMustContain "denny@gmail.com" "$HOME/.xp-mode/current"
   fileMustContain "mark@gmail.com"  "$HOME/.xp-mode/current"
   fileMustContain "lisa@gmail.com"  "$HOME/.xp-mode/current"
+
+  pending "Allow spaces after commas"

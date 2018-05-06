@@ -56,13 +56,15 @@ function __xp-mode-dynamic-pair {
     local currentEmailsFilename="$HOME/.xp-mode/current"
 
     :> $currentEmailsFilename
+
+    local names=()
     
-    local groupName="`cat $filename | head -n 1 | cut -d ";" -f 1`"
+
 
     for element in "${arrayOfNames[@]}"
     do
         if [ $(__xp-mode-is-known-person $element) = "1" ]; then
-            groupName="$groupName, $element"
+            names+=($element)
             echo $(__xp-mode-get-person-email $element) >> $currentEmailsFilename
         elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
             echo "The person <$element> is duplicated in $filename:"
@@ -78,9 +80,13 @@ function __xp-mode-dynamic-pair {
     local numberOfNames="${#arrayOfNames[@]}"
     
     local lastName=${arrayOfNames[numberOfNames - 1]}
-     
-    __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
+
+    local groupName=$(join "," ${names[@]})
+    
+    __xp-mode-export "${groupName//,/", "}" $(__xp-mode-get-person-email $lastName)
 }
+
+function join { local IFS="$1"; shift; echo "$*"; }
 
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
