@@ -32,6 +32,7 @@ function __xp-mode-install-git-hooks {
         touch $f; chmod +x $f
 
     cat << 'EOF' > $f
+#!/bin/bash
       file="$HOME/.xp-mode/current"
 
       if [ -f "$file" ]; then 
