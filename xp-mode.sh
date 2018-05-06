@@ -100,7 +100,7 @@ function __xp-mode-dynamic-pair {
 
     local groupName=$(join "," ${names[@]})
     
-    __xp-mode-export "${groupName//,/", "}" $(__xp-mode-get-person-email $lastName)
+    __xp-mode-export "${groupName//,/, }" $(__xp-mode-get-person-email $lastName)
 }
 
 function join { local IFS="$1"; shift; echo "$*"; }
