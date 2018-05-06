@@ -42,7 +42,7 @@ function commit {
 
     echo "No forks please" >> README.md
 
-    git add README.md 
+    `git add README.md`
     git commit -am "$message"
 }
 
