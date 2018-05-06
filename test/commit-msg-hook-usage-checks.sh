@@ -48,6 +48,7 @@ test "it adds a message to your commit"
 
 Co-authored-by: <darren@gmail.com>
 Co-authored-by: <wanda@gmail.com>"
+  
   mustBe "$expected" "$theCommitMessage"
   
   after_each
