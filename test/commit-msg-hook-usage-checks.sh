@@ -26,7 +26,7 @@ function before_each {
 function after_each {
     cd -
 
-    debug "Deleting <$tempDir>"; rm -r $tempDir
+    debug "Deleting <$tempDir>"; rm -rf $tempDir
 
     debug "Current directory is now <$(pwd)>"
 }
