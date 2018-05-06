@@ -42,13 +42,13 @@ function commit {
 
     echo "No forks please" >> README.md
 
-    $(git add README.md)
-    $(git commit -am "$message")
+    $(git add README.md > /dev/null)
+    $(git commit -am "$message" > /dev/null)
 }
 
 test "it adds a message to your commit"
 
-  $(pair hooks)
+  pair hooks
 
   pair Darren,Wanda
   
@@ -56,8 +56,8 @@ test "it adds a message to your commit"
   
   expected="Push to master
 
-Co-authored-by: <darren@gmail.com>
-Co-authored-by: <wanda@gmail.com>"
+Co-authored-by: Mob <darren@gmail.com>
+Co-authored-by: Mob <wanda@gmail.com>"
 
   lastCommitMessageMustBe "$expected"
   
