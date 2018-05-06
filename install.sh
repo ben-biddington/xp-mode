@@ -40,8 +40,7 @@ else
     cp xp-mode.sh $filename
 fi
 
-echo "# Load xp-mode" >> $profile
-echo "source "$filename"" >> $profile
+echo "source "$filename" # xp-mode" >> $profile
 
 echo "Updated <$profile>"
 

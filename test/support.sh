@@ -77,6 +77,16 @@ function mustMatch {
     fi
 }
 
+function mustEqual {
+    local expected=$1
+    local actual=$2
+    local message=$3
+    
+    if [[ "$actual" -ne "$expected" ]]; then
+        fail "Expected <$actual> to match <$expected>\n$message"
+    fi
+}
+
 function mustExitOkay {
     if [[ ! "$?" = 0 ]]; then
         fail "Expected exit code <0>, got <$?>"

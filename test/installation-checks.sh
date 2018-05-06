@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source "$(dirname $0)/support.sh"
+profile="$HOME/.bash_profile"
 
 function before_each {
     git config --global user.name "The Bizzz"
@@ -8,6 +9,7 @@ function before_each {
 
     clobber $filename
     clobber $peopleFilename
+    clobber $profile
 }
 
 test "(1) It touches .pairs file when missing"
@@ -60,7 +62,13 @@ test "(6) It moves ~/.pairs and ~/.people to ~/.xp-mode/ if it is present"
 
   fileMustEqual "A" $filename
   fileMustEqual "B" $peopleFilename
+
+test "It skips updating the bash profile if already modified"
+
+  SKIP_DOWNLOAD=1 bash install.sh #&> /dev/null
+  SKIP_DOWNLOAD=1 bash install.sh #&> /dev/null
+
+  mustEqual 1 $(grep -Eir "# xp-mode" "$profile" | wc -l) "Expected the file <$profile> to have been updated only once"
   
 pending "The info command tells you where your pairs file is"
-pending "It skips updating the bash profile if already modified?"
 
