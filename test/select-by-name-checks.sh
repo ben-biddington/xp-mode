@@ -18,23 +18,23 @@ function before_each {
 
 test "select a pair by using names"
 
-  pair "Ben,Denny,Lisa"
+  pair Ben,Denny,Lisa
 
   gitAuthorMustEqual "Ben, Denny, Lisa" "lisa@gmail.com"
 
 test "it just uses the names you supply" # Could use the current configured user.nane, but that often is full name
   
-  pair "Lisa"
+  pair Lisa
 
   gitAuthorMustEqual "Lisa" "lisa@gmail.com"
 
 test "it uses the email address for the last person in the list"
 
-  pair "Ben,Lisa,Denny"
+  pair Ben,Lisa,Denny
 
   gitAuthorMustEqual "Ben, Lisa, Denny" "denny@gmail.com"
 
-  pair "Ben,Lisa,Mark"
+  pair Ben,Lisa,Mark
 
   gitAuthorMustEqual "Ben, Lisa, Mark" "mark@gmail.com"
   
