@@ -48,3 +48,23 @@ Commit: Ben <ben@gmail.com>
   
   after_each
 
+test "it adds Co-authored-by trailers when hooks are enabled"
+
+  pair hooks
+
+  pair Ben,Richard,Denny
+  
+  commit "And use small batches"
+  
+  expected="
+Author: Ben, Richard, Denny <denny@gmail.com>
+Commit: Ben <ben@gmail.com>
+
+    And use small batches
+
+"
+
+  lastCommitMustContain "$expected"
+  
+  after_each
+

@@ -52,18 +52,30 @@ $ pair Denny,Richard
 * Committer is set to whatever you have set as git config `user.name` and `user.email`.
 
 ```
-
-Set GIT_AUTHOR_NAME=Ben, Richard, Denny
-Set GIT_AUTHOR_EMAIL=denny@gmail.com
-Author is now <Ben, Richard, Denny; denny@gmail.com>
-Committer is now <Ben Biddington; ben@gmail.com>
 commit 402c410f89947c88e3d4e42aefe199cf06917056
 Author: Ben, Richard, Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     Push to master
 
-```      
+```
+
+When you have hooks enabled, you get extra `Co-authored-by` trailers in your commits:
+
+Enable hooks with `pair hooks`. Disable them with `pair hooks -d`.
+
+```
+commit 7de767f5e59e154c705bee8de7413529dc287ab5
+Author: Ben, Richard, Denny <denny@gmail.com>
+Commit: Ben Biddington <ben@gmail.com>
+
+    And use small batches
+    
+    Co-authored-by: Mob <ben@gmail.com>
+    Co-authored-by: Mob <richard@gmail.com>
+    Co-authored-by: Mob <denny@gmail.com>
+
+```
 
 # FAQ
 
