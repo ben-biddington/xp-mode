@@ -27,8 +27,8 @@ After installation you have a `~/.xp-mode/people` file.
 Add authors to it in this format:
 
 ```
-Ben; ben.biddington@gmail.com
-Richard; richard.fortune@gmail.com
+Ben; ben@gmail.com
+Richard; richard@gmail.com
 Denny; denny@gmail.com
 ```
 
