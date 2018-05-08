@@ -82,7 +82,7 @@ Commit: Ben Biddington <ben@gmail.com>
 
 ```
 
-To revert to normal operation:
+To [revert to normal operation](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh):
 
 ```
 pair solo
