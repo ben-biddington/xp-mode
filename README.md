@@ -22,7 +22,7 @@ curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.bat
 
 # Configuration
 
-After installation you have the `.xp-mode` in your home directory. It contains a `pairs` and `people` file.
+After installation you have the `~/.xp-mode` directory. It contains a `people` file.
 
 Add authors in the `people` file, for example:
 
@@ -48,7 +48,22 @@ When used with the pair-by-name mode, this adds co-authored-by trailers to your 
 $ pair Denny,Richard
 ```
 
-The person last in the list is set to the author.
+* The person last in the list has their email address used, and everyone in the group has their name added.
+* Committer is set to whatever you have set as git config `user.name` and `user.email`.
+
+```
+
+Set GIT_AUTHOR_NAME=Ben, Richard, Denny
+Set GIT_AUTHOR_EMAIL=denny@gmail.com
+Author is now <Ben, Richard, Denny; denny@gmail.com>
+Committer is now <Ben Biddington; ben@gmail.com>
+commit 402c410f89947c88e3d4e42aefe199cf06917056
+Author: Ben, Richard, Denny <denny@gmail.com>
+Commit: Ben Biddington <ben@gmail.com>
+
+    Push to master
+
+```      
 
 # FAQ
 

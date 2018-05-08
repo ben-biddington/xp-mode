@@ -5,6 +5,16 @@ function lastCommitMessageMustBe {
 
     mustBe "$1" "$theCommitMessage"
 }
+
+# todo: assert this by only comparing the supplied lines
+function lastCommitMustContain {
+    expectedLines=$1
+    theCommitMessage="$(git show --format=full)"
+
+    echo "$theCommitMessage" 
+    
+    #mustBe "$1" "$theCommitMessage"
+}
   
 function commit {
     message=$1
