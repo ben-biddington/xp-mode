@@ -29,7 +29,10 @@ function __xp-mode-install-git-hooks {
     local f="$PWD/.git/hooks/commit-msg"
 
     if [ "$2" = "-d" ]; then
-        rm -f $f
+        if [[ $(grep -Eir "#xp-mode" $f | wc -l) -gt 0 ]]; then
+            rm -f $f
+        fi
+        
         return
     fi
     
