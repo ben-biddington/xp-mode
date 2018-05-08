@@ -22,9 +22,9 @@ curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.bat
 
 # Configuration
 
-After installation you have the `~/.xp-mode` directory. It contains a `people` file.
+After installation you have a `~/.xp-mode/people` file.
 
-Add authors in the `people` file, for example:
+Add authors to it in this format:
 
 ```
 Ben; ben.biddington@gmail.com
