@@ -34,7 +34,7 @@ Denny; denny@gmail.com
 
 # Options
 
-Configure a `commit-msg` hook:
+[Configure a `commit-msg` hook](https://github.com/ben-biddington/xp-mode/blob/master/test/installing-hooks-checks.sh):
 
 ```
 $ pair hooks
@@ -54,9 +54,9 @@ $ pair hooks -d
 $ pair Ben,Denny,Richard
 ```
 
-* Author name is the names of the people you selected
-* Author email is the email address of the last person in the list you selected
-* Committer is set to whatever you have set as git config `user.name` and `user.email`.
+* [Author name is the names of the people you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
+* [Author email is the email address of the last person in the list you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
+* [Committer is set to whatever you have set as git config `user.name` and `user.email`](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
 
 ```
 commit 402c410f89947c88e3d4e42aefe199cf06917056
@@ -67,7 +67,7 @@ Commit: Ben Biddington <ben@gmail.com>
 
 ```
 
-When you have hooks enabled, you get extra `Co-authored-by` trailers in your commits:
+[When you have hooks enabled, you get extra `Co-authored-by` trailers in your commits](https://github.com/ben-biddington/xp-mode/blob/master/test/commit-msg-hook-usage-checks.sh):
 
 Enable hooks with `pair hooks`. Disable them with `pair hooks -d`.
 
