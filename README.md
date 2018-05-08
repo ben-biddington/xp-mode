@@ -54,7 +54,8 @@ $ pair hooks -d
 $ pair Ben,Denny,Richard
 ```
 
-* The person last in the list has their email address used, and everyone in the group has their name added.
+* Author name is the names of the people you selected
+* Author email is the email address of the last person in the list you selected
 * Committer is set to whatever you have set as git config `user.name` and `user.email`.
 
 ```
@@ -81,6 +82,12 @@ Commit: Ben Biddington <ben@gmail.com>
     Co-authored-by: Mob <richard@gmail.com>
     Co-authored-by: Mob <denny@gmail.com>
 
+```
+
+To revert to normal operation:
+
+```
+pair solo
 ```
 
 # FAQ
