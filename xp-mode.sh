@@ -80,8 +80,8 @@ function __xp-mode-dynamic-pair {
     fi
 
     local arrayOfNames
-    
-    IFS=',' read -r -a arrayOfNames <<< "$1"
+
+    IFS=',' read -r -a arrayOfNames <<< "$@"
     local filename=$(__xp-mode-people-file-name)
     local x=`echo $1 | cut -d "," -f 1`
     local names=`cat $filename | cut -d ";" -f 1`

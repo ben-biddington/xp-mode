@@ -37,6 +37,16 @@ test "it uses the email address for the last person in the list"
   pair Ben,Lisa,Mark
 
   gitAuthorMustEqual "Ben, Lisa, Mark" "mark@gmail.com"
+
+test "it allows spaces after commas"
+
+  pair Ben, Lisa, Denny
+
+  gitAuthorMustEqual "Ben, Lisa, Denny" "denny@gmail.com"
+
+  pair Ben,Lisa,Mark
+
+  gitAuthorMustEqual "Ben, Lisa, Mark" "mark@gmail.com"
   
 test "it fails when name is not recognised"
 
