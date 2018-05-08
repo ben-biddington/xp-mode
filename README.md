@@ -51,7 +51,7 @@ $ pair hooks -d
 # Usage
 
 ```
-$ pair Denny,Richard
+$ pair Ben,Denny,Richard
 ```
 
 * The person last in the list has their email address used, and everyone in the group has their name added.
