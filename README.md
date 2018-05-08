@@ -40,7 +40,13 @@ Configure a `commit-msg` hook:
 $ pair hooks
 ```
 
-When used with the pair-by-name mode, this adds co-authored-by trailers to your commit messages.
+When used with the pair-by-name mode, this adds `Co-authored-by` trailers to your commit messages.
+
+Turn hooks off with:
+
+```
+$ pair hooks -d
+```
 
 # Usage
 
