@@ -1,5 +1,17 @@
 #!/bin/bash
 
+function newTemporaryGitRepository {
+    tempDir=`mktemp -d -p "$DIR"`
+
+    cd $tempDir > /dev/null
+
+    git init > /dev/null
+
+    cd - > /dev/null
+
+    echo $tempDir
+}
+
 function lastCommitMessageMustBe {
     theCommitMessage="$(git log --format=%B -n 1)"
 

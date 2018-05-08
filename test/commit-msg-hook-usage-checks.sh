@@ -7,7 +7,7 @@ function before_each {
     git config --global user.name "Ben"
     git config --global user.email "ben@gmail.com"
 
-    tempDir=`mktemp -d -p "$DIR"`
+    tempDir=$(newTemporaryGitRepository)
 
     SKIP_DOWNLOAD=1 bash install.sh
     
@@ -20,8 +20,6 @@ function before_each {
     echo "Wanda; wanda@gmail.com"   >> $peopleFilename
     
     cd $tempDir
-
-    git init
 }
 
 function after_each {
@@ -32,7 +30,7 @@ function after_each {
     debug "Current directory is now <$(pwd)>"
 }
 
-test "it adds a message to your commit"
+test "it adds `Co-authored-by` trailers to your commit"
 
   pair hooks
 
@@ -49,7 +47,7 @@ Co-authored-by: Mob <wanda@gmail.com>"
   
   after_each
 
-test "it does not add message when no pair has been set"
+test "it does not add trailera when no pair has been set"
 
   $(pair hooks)
 
@@ -61,7 +59,7 @@ test "it does not add message when no pair has been set"
 
   after_each
 
-test "it does not add message when \`current\` file is empty"
+test "it does not add trailers when \`current\` file is empty"
 
   $(pair hooks)
 
