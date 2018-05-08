@@ -57,3 +57,13 @@ test "use the \`hooks -d\` command to remove hooks"
   fileMustNotExist "$tempDir/.git/hooks/commit-msg"
 
   after_each
+
+test "only deletes the hook if it is ours"
+
+  touch "$tempDir/.git/hooks/commit-msg"
+
+  pair hooks -d
+
+  fileMustExist "$tempDir/.git/hooks/commit-msg"
+
+  
