@@ -9,15 +9,13 @@ function before_each {
     clobber $filename
     clobber $peopleFilename
 
-    tempDir=`mktemp -d -p "$DIR"`
+    tempDir=$(newTemporaryGitRepository)
 
     SKIP_DOWNLOAD=1 bash install.sh
     
     source xp-mode.sh
-    
-    cd $tempDir
 
-    git init
+    cd $tempDir > /dev/null
 }
 
 function after_each {

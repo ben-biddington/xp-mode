@@ -6,6 +6,18 @@ peopleFilename="$HOME/.xp-mode/people"
 failures="test-failures"
 name=""
 
+function newTemporaryGitRepository {
+    tempDir=`mktemp -d -p "$DIR"`
+
+    cd $tempDir > /dev/null
+
+    git init > /dev/null
+
+    cd - > /dev/null
+
+    echo $tempDir
+}
+
 function fileMustNotExist {
     debug "Checking that file <$1> is missing"
     
