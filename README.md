@@ -40,7 +40,7 @@ Denny; denny@gmail.com
 $ pair hooks
 ```
 
-This adds `Co-authored-by` trailers to your commit messages. If you already have a `commit-msg` hook configured, `pair hooks` leaves it alone.
+This adds [`Co-authored-by` trailers](https://blog.github.com/2018-01-29-commit-together-with-co-authors) to your commit messages. [If you already have a `commit-msg` hook configured, it is left alone](https://github.com/ben-biddington/xp-mode/blob/master/test/installing-hooks-checks.sh).
 
 Turn hooks off with:
 
