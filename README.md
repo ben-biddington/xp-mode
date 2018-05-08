@@ -69,8 +69,6 @@ Commit: Ben Biddington <ben@gmail.com>
 
 [When you have hooks enabled, you get extra `Co-authored-by` trailers in your commits](https://github.com/ben-biddington/xp-mode/blob/master/test/commit-msg-hook-usage-checks.sh):
 
-Enable hooks with `pair hooks`. Disable them with `pair hooks -d`.
-
 ```
 commit 7de767f5e59e154c705bee8de7413529dc287ab5
 Author: Ben, Richard, Denny <denny@gmail.com>
