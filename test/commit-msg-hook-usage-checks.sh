@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source "$(dirname $0)/support.sh"
+source "$(dirname $0)/support.git.sh"
 
 function before_each {
     git config --global user.name "Ben"
@@ -29,21 +30,6 @@ function after_each {
     debug "Deleting <$tempDir>"; rm -rf $tempDir
 
     debug "Current directory is now <$(pwd)>"
-}
-
-function lastCommitMessageMustBe {
-    theCommitMessage="$(git log --format=%B -n 1)"
-
-    mustBe "$1" "$theCommitMessage"
-}
-  
-function commit {
-    message=$1
-
-    echo "No forks please" >> README.md
-
-    $(git add README.md > /dev/null)
-    $(git commit -am "$message" > /dev/null)
 }
 
 test "it adds a message to your commit"
