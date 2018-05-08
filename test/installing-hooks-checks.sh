@@ -28,12 +28,14 @@ function after_each {
     debug "Current directory is now <$(pwd)>"
 }
 
-test "it makes a hook file"
+test "it makes a hook file and it has the #xp-mode tag in it"
 
   pair hooks
 
   fileMustExist "$tempDir/.git/hooks/commit-msg"
 
+  fileMustContain "#xp-mode" "$tempDir/.git/hooks/commit-msg"
+  
   after_each
 
 test "it skips if it one is already present"
