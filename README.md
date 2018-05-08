@@ -22,64 +22,33 @@ curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.bat
 
 # Configuration
 
-Add a `.pairs` file in your home directory.
+After installation you have the `.xp-mode` in your home directory. It contains a `pairs` and `people` file.
 
-Each row has two columns: author names and email address.
-
-It is important to use one of your guests' email address so they are recorded as the author. As the host, you'll be recorded as the committer.
-Author name may be whatever you like.
+Add authors in the `people` file, for example:
 
 ```
-Ben Biddington        ; ben.biddington@gmail.com
-Ben and Richard       ; richard.fortune@gmail.com
-Ben and Gareth        ; gareth.keenan@aol.com
-Ben and Danny         ; dan.ordinal@aol.com
-Ben, Danny and Gareth ; gareth.keenan@aol.com
+Ben; ben.biddington@gmail.com
+Richard; richard.fortune@gmail.com
+Denny; denny@gmail.com
 ```
+
+# Options
+
+Configure a `commit-msg` hook:
+
+```
+$ pair hooks
+```
+
+When used with the pair-by-name mode, this adds co-authored-by trailers to your commit messages.
 
 # Usage
 
-Show your pairs by calling `pair` with no arguments:
-
 ```
-$ pair
-You have the following <5> pairs in file </home/ben/.pairs>:
-
-[1] Ben Biddington; ben.biddington@gmail.com
-[2] Ben and Richard; richard.fortune@gmail.com
-[3] Ben and Gareth; gareth.keenan@aol.com
-[4] Ben and Danny; dan.ordinal@aol.com
-[5] Ben, Danny and Gareth; gareth.keenan@aol.com
+$ pair Denny,Richard
 ```
 
-The numbers indicate how to choose a pair.
-
-## Example
-
-To select `Ben and Richard`, use `pair 2`.
-
-```
-$ pair 2
-Set GIT_AUTHOR_NAME=Ben and Richard
-Set GIT_AUTHOR_EMAIL=richard.fortune@gmail.com
-
-```
-
-Next time you make a commit you'll see something like:
-
-```
-$ git show --format=full
-commit e387396c587f9850a232cfbf66e7741a476737c4
-Author: Ben and Richard <richard.fortune@gmail.com>
-Commit: Ben Biddington <ben.biddington@gmail.com>
-
-    Who says famine has to be depressing?
-
-```
-
-You can see that the pair has been recorded in the commit by setting author to `Ben and Richard <richard.fortune@gmail.com>` and the commiter to `Ben Biddington <ben.biddington@gmail.com>`. Handily it appears like this in github, too:
-
-![](/toast.png)
+The person last in the list is set to the author.
 
 # FAQ
 
