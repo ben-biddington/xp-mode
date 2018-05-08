@@ -47,7 +47,7 @@ Co-authored-by: Mob <wanda@gmail.com>"
   
   after_each
 
-test "it does not add trailera when no pair has been set"
+test "it does not add `Co-authored-by` when no pair has been set"
 
   $(pair hooks)
 
@@ -59,7 +59,7 @@ test "it does not add trailera when no pair has been set"
 
   after_each
 
-test "it does not add trailers when \`current\` file is empty"
+test "it does not add `Co-authored-by` when \`current\` file is empty"
 
   $(pair hooks)
 
