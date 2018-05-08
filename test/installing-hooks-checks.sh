@@ -21,7 +21,7 @@ function before_each {
 }
 
 function after_each {
-    cd -
+    cd - >> /dev/null
 
     debug "Deleting <$tempDir>"; rm -r $tempDir
 
@@ -66,4 +66,15 @@ test "only deletes the hook if it is ours"
 
   fileMustExist "$tempDir/.git/hooks/commit-msg"
 
+  after_each
+
+test "it skips if the hook file does not exist"
+
+  clobber "$tempDir/.git/hooks/commit-msg"
+
+  result=$(pair hooks -d)
+
+  mustMatch "nothing to delete" "$result"
+
+  after_each
   

@@ -29,17 +29,20 @@ function __xp-mode-install-git-hooks {
     local f="$PWD/.git/hooks/commit-msg"
 
     if [ "$2" = "-d" ]; then
-        if [[ $(grep -Eir "#xp-mode" $f | wc -l) -gt 0 ]]; then
-            rm -f $f
+        if [ -f $f ]; then
+            if [[ $(grep -Eir "#xp-mode" $f | wc -l) -gt 0 ]]; then
+                rm -f $f
+            fi
+        else
+            echo "The file <$f> does not exist, nothing to delete"
         fi
-        
         return
     fi
     
     if [ ! -f $f ]; then
         touch $f; chmod +x $f
 
-    cat << 'EOF' > $f
+        cat << 'EOF' > $f
       #!/bin/bash
       #xp-mode
 
