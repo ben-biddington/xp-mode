@@ -20,6 +20,23 @@ curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.bat
 .\install.bat
 ```
 
+## Automatic update
+
+Run `pair update`
+
+```
+ben@bang:~/sauce/xp-mode$ pair update 
+Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  1481  100  1481    0     0    778      0  0:00:01  0:00:01 --:--:--   777
+Installing xp-mode to </home/ben>
+Deleting file at </home/ben/xp-mode.sh>
+Downloading <https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.sh> to </home/ben/xp-mode.sh>
+Pairs file already exists at </home/ben/.xp-mode/pairs>
+People file already exists at </home/ben/.xp-mode/people>
+```
+
 # Configuration
 
 After installation you have a `~/.xp-mode/people` file.

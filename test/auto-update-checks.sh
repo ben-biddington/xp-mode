@@ -11,6 +11,8 @@ test "it downloads and updates \`xp-mode.sh\`"
 
   result=$(pair update)
 
+  echo "$result"
+  
   mustMatch "Installing xp-mode" "$result"
 
 

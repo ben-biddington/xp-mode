@@ -127,6 +127,7 @@ function join { local IFS="$1"; shift; echo "$*"; }
 #
 function __xp-mode-update {
     echo 'Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh'
+
     sleep 5
 
     result=$(curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh)
