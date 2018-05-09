@@ -45,7 +45,7 @@ Add authors to it in this format:
 
 ```
 Ben; ben@gmail.com
-Richard; richard@gmail.com
+Lisa; lisa@gmail.com
 Denny; denny@gmail.com
 ```
 
@@ -68,7 +68,7 @@ $ pair hooks -d
 # Usage
 
 ```
-$ pair Ben,Denny,Richard
+$ pair Ben,Lisa,Denny
 ```
 
 * [Author name is the names of the people you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
@@ -77,7 +77,7 @@ $ pair Ben,Denny,Richard
 
 ```
 commit 402c410f89947c88e3d4e42aefe199cf06917056
-Author: Ben, Richard and Denny <denny@gmail.com>
+Author: Ben, Lisa and Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     Push to master
@@ -88,13 +88,13 @@ Commit: Ben Biddington <ben@gmail.com>
 
 ```
 commit 7de767f5e59e154c705bee8de7413529dc287ab5
-Author: Ben, Richard and Denny <denny@gmail.com>
+Author: Ben, Lisa and Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     And use small batches
     
     Co-authored-by: Mob <ben@gmail.com>
-    Co-authored-by: Mob <richard@gmail.com>
+    Co-authored-by: Mob <lisa@gmail.com>
     Co-authored-by: Mob <denny@gmail.com>
 
 ```

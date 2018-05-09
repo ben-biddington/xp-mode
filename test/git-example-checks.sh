@@ -15,9 +15,9 @@ function before_each {
 
     clobber $peopleFilename;
 
-    echo "Ben; ben@gmail.com" >> $peopleFilename
-    echo "Richard; richard@gmail.com"    >> $peopleFilename
-    echo "Denny; denny@gmail.com"        >> $peopleFilename
+    echo "Ben; ben@gmail.com"      >> $peopleFilename
+    echo "Lisa; lisa@gmail.com"    >> $peopleFilename
+    echo "Denny; denny@gmail.com"  >> $peopleFilename
 
     cd $tempDir
 }
@@ -37,7 +37,7 @@ test "it sets author and commiter"
   commit "Push to master"
   
   expected="
-Author: Ben, Richard, Denny <denny@gmail.com>
+Author: Ben, Lisa and Denny <denny@gmail.com>
 Commit: Ben <ben@gmail.com>
 
     Push to master
@@ -52,16 +52,19 @@ test "it adds Co-authored-by trailers when hooks are enabled"
 
   pair hooks
 
-  pair Ben,Richard,Denny
+  pair Ben,Lisa,Denny
   
   commit "And use small batches"
   
   expected="
-Author: Ben, Richard, Denny <denny@gmail.com>
+Author: Ben, Lisa and Denny <denny@gmail.com>
 Commit: Ben <ben@gmail.com>
 
     And use small batches
 
+    Co-authored-by: Mob <ben@gmail.com>
+    Co-authored-by: Mob <lisa@gmail.com>
+    Co-authored-by: Mob <denny@gmail.com>
 "
 
   lastCommitMustContain "$expected"
