@@ -117,21 +117,46 @@ function __xp-mode-dynamic-pair {
         groupName="${groupName} and $lastName"
     fi
     
-    
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
 }
 
 function join { local IFS="$1"; shift; echo "$*"; }
 
+#
+# update source
+#
+function __xp-mode-update {
+    echo 'Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh'
+    sleep 5
+
+    result=$(curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh)
+
+    echo "$result"
+}
+
 # Usage: $ source xp-mode.sh && pair 1
 function pair() {
+    #
+    # pair update
+    #
+    if [ "${1:-}" = 'update' ]; then
+       __xp-mode-update $@
+       return
+    fi
+    
     local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
-
+    
+    #
+    # pair Ben, Denny, Lisa
+    #
     if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
        __xp-mode-dynamic-pair $@
        return
     fi
 
+    #
+    # pair 2
+    #
     local filename=$(__xp-mode-pairs-file-name)
 
     if [ ! -f $filename ]; then

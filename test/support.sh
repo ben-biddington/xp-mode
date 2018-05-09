@@ -78,8 +78,8 @@ function mustBe {
 }
 
 function mustMatch {
-    local expected=$1
-    local actual=$2
+    local expected="$1"
+    local actual="$2"
 
     if [[ -z $2 ]]; then
         fail "\`mustMatch\`: No actual value supplied, it should be the second argument."
@@ -96,7 +96,7 @@ function mustEqual {
     local message=$3
     
     if [[ "$actual" -ne "$expected" ]]; then
-        fail "Expected <$actual> to match <$expected>\n$message"
+        fail "Expected <$actual> to equal <$expected>\n$message"
     fi
 }
 
