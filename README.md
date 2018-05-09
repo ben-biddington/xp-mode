@@ -60,7 +60,7 @@ $ pair Ben,Denny,Richard
 
 ```
 commit 402c410f89947c88e3d4e42aefe199cf06917056
-Author: Ben, Richard, Denny <denny@gmail.com>
+Author: Ben, Richard and Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     Push to master
@@ -71,7 +71,7 @@ Commit: Ben Biddington <ben@gmail.com>
 
 ```
 commit 7de767f5e59e154c705bee8de7413529dc287ab5
-Author: Ben, Richard, Denny <denny@gmail.com>
+Author: Ben, Richard and Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     And use small batches

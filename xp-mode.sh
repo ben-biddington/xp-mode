@@ -79,22 +79,18 @@ function __xp-mode-dynamic-pair {
         return
     fi
 
-    local arrayOfNames
-
-    IFS=',' read -r -a arrayOfNames <<< "$@"
     local filename=$(__xp-mode-people-file-name)
-    local x=`echo $1 | cut -d "," -f 1`
-    local names=`cat $filename | cut -d ";" -f 1`
-    local namesList=`echo "$names" | tr '\n' ', '`
 
     :> $currentEmailsFilename
 
     local names=()
+    local tmp
     
-    for element in "${arrayOfNames[@]}"
+    IFS=',' read -r -a tmp <<< "$@"
+    for element in "${tmp[@]}"
     do
         if [ $(__xp-mode-is-known-person $element) = "1" ]; then
-            names+=($element)
+            names+=($(echo $element | tr -d ' '))
             echo $(__xp-mode-get-person-email $element) >> $currentEmailsFilename
         elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
             echo "The person <$element> is duplicated in $filename:"
@@ -107,13 +103,22 @@ function __xp-mode-dynamic-pair {
         fi
     done
 
-    local numberOfNames="${#arrayOfNames[@]}"
-    
-    local lastName=${arrayOfNames[numberOfNames - 1]}
+    local numberOfNames="${#names[@]}"
+    local indexOfSecondLastName=$((numberOfNames-1))
+    local lastName=${names[numberOfNames - 1]}
 
-    local groupName=$(join "," ${names[@]})
+    local groupName=$(join "," ${names[@]:0:$indexOfSecondLastName})
+
+    groupName="${groupName//,/, }"
+
+    if [ $numberOfNames -eq 1 ]; then
+        groupName="$lastName"
+    else
+        groupName="${groupName} and $lastName"
+    fi
     
-    __xp-mode-export "${groupName//,/, }" $(__xp-mode-get-person-email $lastName)
+    
+    __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
 }
 
 function join { local IFS="$1"; shift; echo "$*"; }

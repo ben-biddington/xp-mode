@@ -18,11 +18,17 @@ function before_each {
 
 test "select a pair by using names"
 
+  pair Ben,Lisa
+
+  gitAuthorMustEqual "Ben and Lisa" "lisa@gmail.com"
+
+test "select a mob by using names"
+
   pair Ben,Denny,Lisa
 
-  gitAuthorMustEqual "Ben, Denny, Lisa" "lisa@gmail.com"
+  gitAuthorMustEqual "Ben, Denny and Lisa" "lisa@gmail.com"
 
-test "it just uses the names you supply" # Could use the current configured user.nane, but that often is full name
+test "it just uses the names you supply" # Could use the current configured user.name, but that often is full name
   
   pair Lisa
 
@@ -32,21 +38,21 @@ test "it uses the email address for the last person in the list"
 
   pair Ben,Lisa,Denny
 
-  gitAuthorMustEqual "Ben, Lisa, Denny" "denny@gmail.com"
+  gitAuthorMustEqual "Ben, Lisa and Denny" "denny@gmail.com"
 
   pair Ben,Lisa,Mark
 
-  gitAuthorMustEqual "Ben, Lisa, Mark" "mark@gmail.com"
+  gitAuthorMustEqual "Ben, Lisa and Mark" "mark@gmail.com"
 
 test "it allows spaces after commas"
 
   pair Ben, Lisa, Denny
 
-  gitAuthorMustEqual "Ben, Lisa, Denny" "denny@gmail.com"
+  gitAuthorMustEqual "Ben, Lisa and Denny" "denny@gmail.com"
 
   pair Ben,Lisa,Mark
 
-  gitAuthorMustEqual "Ben, Lisa, Mark" "mark@gmail.com"
+  gitAuthorMustEqual "Ben, Lisa and Mark" "mark@gmail.com"
   
 test "it fails when name is not recognised"
 
