@@ -49,10 +49,6 @@ test "it allows spaces after commas"
   pair Ben, Lisa, Denny
 
   gitAuthorMustEqual "Ben, Lisa and Denny" "denny@gmail.com"
-
-  pair Ben,Lisa,Mark
-
-  gitAuthorMustEqual "Ben, Lisa and Mark" "mark@gmail.com"
   
 test "it fails when name is not recognised"
 
@@ -73,8 +69,6 @@ test "records email addresses in a file"
   fileMustContain "denny@gmail.com" "$HOME/.xp-mode/current"
   fileMustContain "mark@gmail.com"  "$HOME/.xp-mode/current"
   fileMustContain "lisa@gmail.com"  "$HOME/.xp-mode/current"
-
-  pending "Allow spaces after commas"
 
 test "\`pair solo\` sets author to committer and deletes current authors"
 
