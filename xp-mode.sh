@@ -185,12 +185,12 @@ function __xp-mode-export {
 }
 
 function __xp-mode-bash-complete() {
-    echo ""
-    __xp-mode-print-pairs
+    local names=(solo update)
+    echo names
 }
 
 # http://ss64.com/osx/complete.html
-complete -F __xp-mode-bash-complete pair
+# complete -W "solo,update" pair
 
 # print completions: `complete -p | less`
 
