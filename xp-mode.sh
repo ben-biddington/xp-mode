@@ -1,5 +1,25 @@
 #!/bin/bash
 
+function pair() {
+    #
+    # pair update
+    #
+    if [ "${1:-}" = 'update' ]; then
+       __xp-mode-update $@
+       return
+    fi
+    
+    local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
+    
+    #
+    # pair Ben, Denny, Lisa
+    #
+    if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
+       __xp-mode-dynamic-pair $@
+       return
+    fi
+}
+
 function __xp-mode-people-file-name {
     echo "$HOME/.xp-mode/people"
 }
@@ -143,27 +163,6 @@ function __xp-mode-update {
     result=$(curl -s https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh)
 
     echo "$result"
-}
-
-# Usage: $ source xp-mode.sh && pair 1
-function pair() {
-    #
-    # pair update
-    #
-    if [ "${1:-}" = 'update' ]; then
-       __xp-mode-update $@
-       return
-    fi
-    
-    local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
-    
-    #
-    # pair Ben, Denny, Lisa
-    #
-    if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
-       __xp-mode-dynamic-pair $@
-       return
-    fi
 }
 
 function __xp-mode-export {
