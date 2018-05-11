@@ -15,62 +15,6 @@ function pair() {
      __xp-mode-dynamic-pair $@
 }
 
-function __xp-mode-people-file-name {
-    echo "$HOME/.xp-mode/people"
-}
-
-function __xp-mode-is-known-person {
-    local count=`cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
-    
-    echo $count
-}
-
-function __xp-mode-get-person-email {
-    local record=`cat $(__xp-mode-people-file-name) | grep -Eir "^$1" -`
-    local email=`echo $record | cut -d ';' -f 2`
-
-    echo $email
-}
-
-function __xp-mode-install-git-hooks {
-    local f="$PWD/.git/hooks/commit-msg"
-
-    if [ "$2" = "-d" ]; then
-        if [ -f $f ]; then
-            if [[ $(grep -Eir "#xp-mode" $f | wc -l) -gt 0 ]]; then
-                rm -f $f
-            fi
-        else
-            echo "The file <$f> does not exist, nothing to delete"
-        fi
-        return
-    fi
-    
-    if [ ! -f $f ]; then
-        touch $f; chmod +x $f
-
-        cat << 'EOF' > $f
-      #!/bin/bash
-      #xp-mode
-
-      file="$HOME/.xp-mode/current"
-
-      if [ -f "$file" ]; then 
-        commitMsg="$1"
-
-        echo "" >> $commitMsg 
-
-        for email in $(cat "$file"); do 
-          echo "Co-authored-by: Mob <$email>" >> $commitMsg
-        done; 
-     fi; 
-EOF
-        
-    else
-        echo "You already have a commit-msg hook present at <$f>, skipping"
-    fi
-}
-
 function __xp-mode-dynamic-pair {
     local currentEmailsFilename="$HOME/.xp-mode/current"
     
@@ -126,6 +70,62 @@ function __xp-mode-dynamic-pair {
     fi
     
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
+}
+
+function __xp-mode-install-git-hooks {
+    local f="$PWD/.git/hooks/commit-msg"
+
+    if [ "$2" = "-d" ]; then
+        if [ -f $f ]; then
+            if [[ $(grep -Eir "#xp-mode" $f | wc -l) -gt 0 ]]; then
+                rm -f $f
+            fi
+        else
+            echo "The file <$f> does not exist, nothing to delete"
+        fi
+        return
+    fi
+    
+    if [ ! -f $f ]; then
+        touch $f; chmod +x $f
+
+        cat << 'EOF' > $f
+      #!/bin/bash
+      #xp-mode
+
+      file="$HOME/.xp-mode/current"
+
+      if [ -f "$file" ]; then 
+        commitMsg="$1"
+
+        echo "" >> $commitMsg 
+
+        for email in $(cat "$file"); do 
+          echo "Co-authored-by: Mob <$email>" >> $commitMsg
+        done; 
+     fi; 
+EOF
+        
+    else
+        echo "You already have a commit-msg hook present at <$f>, skipping"
+    fi
+}
+
+function __xp-mode-people-file-name {
+    echo "$HOME/.xp-mode/people"
+}
+
+function __xp-mode-is-known-person {
+    local count=`cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
+    
+    echo $count
+}
+
+function __xp-mode-get-person-email {
+    local record=`cat $(__xp-mode-people-file-name) | grep -Eir "^$1" -`
+    local email=`echo $record | cut -d ';' -f 2`
+
+    echo $email
 }
 
 #
