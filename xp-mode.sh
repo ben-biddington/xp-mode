@@ -9,15 +9,10 @@ function pair() {
        return
     fi
     
-    local argumentIsNumeric=$(__xp-mode-is-numeric "$1")
-    
     #
     # pair Ben, Denny, Lisa
     #
-    if [ ! -z "$1" ] && [[ "$argumentIsNumeric" -eq "0" ]]; then
-       __xp-mode-dynamic-pair $@
-       return
-    fi
+     __xp-mode-dynamic-pair $@
 }
 
 function __xp-mode-people-file-name {
@@ -35,10 +30,6 @@ function __xp-mode-get-person-email {
     local email=`echo $record | cut -d ';' -f 2`
 
     echo $email
-}
-
-function __xp-mode-is-numeric {
-    echo "$1" | grep -Eir "^[-0-9]+$" - | wc -l
 }
 
 function __xp-mode-install-git-hooks {
