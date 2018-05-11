@@ -87,17 +87,18 @@ function __xp-mode-dynamic-pair {
     local tmp
     
     IFS=',' read -r -a tmp <<< "$@"
-    for element in "${tmp[@]}"
+    for name in "${tmp[@]}"
     do
-        if [ $(__xp-mode-is-known-person $element) = "1" ]; then
-            names+=($(echo $element | tr -d ' '))
-            echo $(__xp-mode-get-person-email $element) >> $currentEmailsFilename
-        elif [ $(__xp-mode-is-known-person $element) -gt "1" ]; then
-            echo "The person <$element> is duplicated in $filename:"
+        if [ $(__xp-mode-is-known-person $name) = "1" ]; then
+            names+=($(echo $name | tr -d ' '))
+
+            __xp-mode-save-author-email $name
+        elif [ $(__xp-mode-is-known-person $name) -gt "1" ]; then
+            echo "The person <$name> is duplicated in $filename:"
             cat "$filename"
             return
         else
-            echo "Unknown person <$element> in file $filename:"
+            echo "Unknown person <$name> in file $filename:"
             cat "$filename"
             return
         fi
@@ -120,17 +121,30 @@ function __xp-mode-dynamic-pair {
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
 }
 
+#
+# Save the supplied user's email address to `./.xp-mode/current`
+#
+function __xp-mode-save-author-email {
+    local currentEmailsFilename="$HOME/.xp-mode/current"
+    local committerEmail=$(git config user.email)
+    local email=$(__xp-mode-get-person-email $1)
+
+    if [ "$email" != "$committerEmail" ]; then
+       echo $email >> $currentEmailsFilename
+    fi
+}
+
 function join { local IFS="$1"; shift; echo "$*"; }
 
 #
 # update source
 #
 function __xp-mode-update {
-    echo 'Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh'
+    echo "Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh"
 
     sleep 5
 
-    result=$(curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh)
+    result=$(curl -s https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh)
 
     echo "$result"
 }

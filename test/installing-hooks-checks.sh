@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source "$(dirname $0)/support.sh"
+source "$(dirname $0)/support.git.sh"
 
 function before_each {
     git config --global user.name "The Bizzz"

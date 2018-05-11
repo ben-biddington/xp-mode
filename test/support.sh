@@ -36,10 +36,9 @@ function fileMustContain {
     local matches=$(grep -Eir $expectedLine $file | wc -l)
 
     if [[ $matches -ne 1 ]]; then
-        fail "\nExpected\n\n$(cat $file)\n\nto contain:\n\n$expectedLine"
+        fail "\nExpected the file <$file> \n\n$(cat $file)\n\nto contain:\n\n$expectedLine"
     fi
 }
-
 
 function fileMustNotContain {
     local expectedLine=$1
@@ -50,7 +49,7 @@ function fileMustNotContain {
     local matches=$(grep -Eir $expectedLine $file | wc -l)
 
     if [[ $matches -ne 0 ]]; then
-        fail "\nExpected\n\n$(cat $file)\n\n *not* to contain:\n\n$expectedLine"
+        fail "\nExpected the file <$file> \n\n$(cat $file)\n\n *not* to contain:\n\n$expectedLine"
     fi
 }
 
