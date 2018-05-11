@@ -15,7 +15,7 @@ function pair() {
     #
 
     if [ "$1" = "solo" ]; then
-        local currentAuthorsFile="$(__xp-mode-current-authors-file)"
+        local currentAuthorsFile="$(__xp-mode-current-authors-file-name)"
         
         if [ -f $currentAuthorsFile ]; then rm $currentAuthorsFile; fi
         
@@ -41,7 +41,7 @@ function pair() {
 }
 
 function __xp-mode-dynamic-pair {
-    local currentEmailsFilename="$(__xp-mode-current-authors-file)"
+    local currentEmailsFilename="$(__xp-mode-current-authors-file-name)"
     
     local filename=$(__xp-mode-people-file-name)
 
@@ -145,7 +145,7 @@ function __xp-mode-get-person-email {
 # Save the supplied user's email address to `./.xp-mode/current`
 #
 function __xp-mode-save-author-email {
-    local currentEmailsFilename=$(__xp-mode-current-authors-file)
+    local currentEmailsFilename=$(__xp-mode-current-authors-file-name)
     local committerEmail=$(git config user.email)
     local email=$(__xp-mode-get-person-email $1)
 
@@ -156,7 +156,7 @@ function __xp-mode-save-author-email {
 
 function join { local IFS="$1"; shift; echo "$*"; }
 
-function __xp-mode-current-authors-file {
+function __xp-mode-current-authors-file-name {
     echo "$HOME/.xp-mode/current"
 }
 
