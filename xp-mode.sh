@@ -4,9 +4,34 @@ function pair() {
     #
     # pair update
     #
-    if [ "${1:-}" = 'update' ]; then
+    if [ "${1:-}" = "update" ]; then
        __xp-mode-update $@
+
        return
+    fi
+
+    #
+    # pair solo
+    #
+
+    if [ "$1" = "solo" ]; then
+        local currentAuthorsFile="$(__xp-mode-current-authors-file)"
+        
+        if [ -f $currentAuthorsFile ]; then rm $currentAuthorsFile; fi
+        
+        __xp-mode-export "$(git config user.name)" "$(git config user.email)"
+
+        return
+    fi
+
+    #
+    # pair hooks
+    #
+    
+    if [ "$1" = "hooks" ]; then
+        __xp-mode-install-git-hooks "$@"
+
+        return
     fi
     
     #
@@ -16,20 +41,8 @@ function pair() {
 }
 
 function __xp-mode-dynamic-pair {
-    local currentEmailsFilename="$HOME/.xp-mode/current"
+    local currentEmailsFilename="$(__xp-mode-current-authors-file)"
     
-    if [ "$1" = "solo" ]; then
-        if [ -f $currentEmailsFilename ]; then rm $currentEmailsFilename; fi
-        
-        __xp-mode-export "$(git config user.name)" "$(git config user.email)"
-        return
-    fi
-
-    if [ "$1" = "hooks" ]; then
-        __xp-mode-install-git-hooks "$@"
-        return
-    fi
-
     local filename=$(__xp-mode-people-file-name)
 
     :> $currentEmailsFilename
@@ -70,6 +83,10 @@ function __xp-mode-dynamic-pair {
     fi
     
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
+}
+
+function __xp-mode-current-authors-file {
+    echo "$HOME/.xp-mode/current"
 }
 
 function __xp-mode-install-git-hooks {
