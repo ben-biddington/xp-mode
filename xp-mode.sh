@@ -1,9 +1,5 @@
 #!/bin/bash
 
-function __xp-mode-pairs-file-name {
-    echo "$HOME/.xp-mode/pairs"
-}
-
 function __xp-mode-people-file-name {
     echo "$HOME/.xp-mode/people"
 }
@@ -168,38 +164,6 @@ function pair() {
        __xp-mode-dynamic-pair $@
        return
     fi
-
-    #
-    # pair 2
-    #
-    local filename=$(__xp-mode-pairs-file-name)
-
-    if [ ! -f $filename ]; then
-        echo "Config file <$filename> is missing. Exiting."
-        return
-    fi
-    
-    local total_lines=`awk 'END {print NR}' $filename`
-    
-    if [ -z "$1" ]; then
-        echo "You have the following <$total_lines> pairs in file <$filename>:"; echo ""
-        __xp-mode-print-pairs
-        return
-    fi
-    
-    local number=$(($1<1?1:$1))
-
-    if [ $number -gt $total_lines ]; then
-        number=1
-    fi
-    
-    local result=`cat $filename | sed ""$number"q;d"`
-
-    local git_author_name=`echo $result | cut -d ";" -f 1 | sed 's/^[ \t]*//;s/[ \t]*$//'`
-    local git_author_email=`echo $result | cut -d ";" -f 2 | sed 's/^[ \t]*//;s/[ \t]*$//'`
-    local pair_initials=`echo $result | cut -d ";" -f 3 | sed 's/^[ \t]*//;s/[ \t]*$//'`
-
-    __xp-mode-export "$git_author_name" "$git_author_email"
 }
 
 function __xp-mode-export {
@@ -216,17 +180,6 @@ function __xp-mode-export {
 function __xp-mode-bash-complete() {
     echo ""
     __xp-mode-print-pairs
-}
-
-function __xp-mode-print-pairs() {
-    local i=0
-
-    while read line 
-    do
-        echo [$((++i))] $line
-    done < $(__xp-mode-pairs-file-name)
-    
-    echo ""
 }
 
 # http://ss64.com/osx/complete.html

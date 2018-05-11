@@ -12,14 +12,6 @@ curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh 
 
 [Read what installer does](/install.sh)
 
-For a windows cmd prompt:
-
-```
-curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.bat
-curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.bat
-.\install.bat
-```
-
 ## Automatic update
 
 Run `pair update`
