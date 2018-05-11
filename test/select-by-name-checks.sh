@@ -70,6 +70,21 @@ test "records email addresses in a file"
   fileMustContain "mark@gmail.com"  "$HOME/.xp-mode/current"
   fileMustContain "lisa@gmail.com"  "$HOME/.xp-mode/current"
 
+test "records email addresses in a file excluding the committer's"
+
+  pair Denny,Ben,Mark,Lisa # ben@gmail.com
+
+  expected="denny@gmail.com\nmark@gmail.com\nlisa@gmail.com"
+
+  fileMustExist "$HOME/.xp-mode/current"
+
+  cat "$HOME/.xp-mode/current"
+
+  fileMustContain "denny@gmail.com" "$HOME/.xp-mode/current"
+  fileMustContain "mark@gmail.com"  "$HOME/.xp-mode/current"
+  fileMustContain "lisa@gmail.com"  "$HOME/.xp-mode/current"
+  fileMustNotContain "ben@gmail.com"  "$HOME/.xp-mode/current"
+
 test "\`pair solo\` sets author to committer and deletes current authors"
 
   pair 1 
