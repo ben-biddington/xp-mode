@@ -85,10 +85,6 @@ function __xp-mode-dynamic-pair {
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
 }
 
-function __xp-mode-current-authors-file {
-    echo "$HOME/.xp-mode/current"
-}
-
 function __xp-mode-install-git-hooks {
     local f="$PWD/.git/hooks/commit-msg"
 
@@ -149,7 +145,7 @@ function __xp-mode-get-person-email {
 # Save the supplied user's email address to `./.xp-mode/current`
 #
 function __xp-mode-save-author-email {
-    local currentEmailsFilename="$HOME/.xp-mode/current"
+    local currentEmailsFilename=$(__xp-mode-current-authors-file)
     local committerEmail=$(git config user.email)
     local email=$(__xp-mode-get-person-email $1)
 
@@ -159,6 +155,10 @@ function __xp-mode-save-author-email {
 }
 
 function join { local IFS="$1"; shift; echo "$*"; }
+
+function __xp-mode-current-authors-file {
+    echo "$HOME/.xp-mode/current"
+}
 
 #
 # update source
