@@ -56,6 +56,16 @@ test "it fails when name is not recognised"
 
   mustMatch "Unknown person" "$result"
 
+test "it fails when name is duplicate"
+
+  echo "Mark; mark.wigg@gmail.com" >> $peopleFilename
+
+  cat $peopleFilename
+  
+  result=`pair Mark`
+
+  mustMatch "The person <Mark> is duplicated" "$result"
+
 test "records email addresses in a file"
 
   pair Denny,Mark,Lisa
