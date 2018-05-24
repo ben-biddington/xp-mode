@@ -60,11 +60,18 @@ test "it fails when name is duplicate"
 
   echo "Mark; mark.wigg@gmail.com" >> $peopleFilename
 
-  cat $peopleFilename
-  
   result=`pair Mark`
 
   mustMatch "The person <Mark> is duplicated" "$result"
+
+test "it greedy matches names"
+
+  echo "AlexG; alex.g@gmail.com" >> $peopleFilename
+  echo "Alex; alex.l@gmail.com" >> $peopleFilename
+  
+  pair Ben,Alex
+
+  gitAuthorMustEqual "Ben and Alex" "alex.l@gmail.com"
 
 test "records email addresses in a file"
 
@@ -73,8 +80,6 @@ test "records email addresses in a file"
   expected="denny@gmail.com\nmark@gmail.com\nlisa@gmail.com"
 
   fileMustExist "$HOME/.xp-mode/current"
-
-  cat "$HOME/.xp-mode/current"
 
   fileMustContain "denny@gmail.com" "$HOME/.xp-mode/current"
   fileMustContain "mark@gmail.com"  "$HOME/.xp-mode/current"
@@ -88,16 +93,12 @@ test "records email addresses in a file excluding the committer's"
 
   fileMustExist "$HOME/.xp-mode/current"
 
-  cat "$HOME/.xp-mode/current"
-
   fileMustContain "denny@gmail.com" "$HOME/.xp-mode/current"
   fileMustContain "mark@gmail.com"  "$HOME/.xp-mode/current"
   fileMustContain "lisa@gmail.com"  "$HOME/.xp-mode/current"
   fileMustNotContain "ben@gmail.com"  "$HOME/.xp-mode/current"
 
 test "\`pair solo\` sets author to committer and deletes current authors"
-
-  pair 1 
 
   pair solo
 

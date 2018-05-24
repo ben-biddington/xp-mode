@@ -129,13 +129,13 @@ function __xp-mode-people-file-name {
 }
 
 function __xp-mode-is-known-person {
-    local count=`cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1" - | wc -l`
+    local count=`cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1$" - | wc -l`
     
     echo $count
 }
 
 function __xp-mode-get-person-email {
-    local record=`cat $(__xp-mode-people-file-name) | grep -Eir "^$1" -`
+    local record=`cat $(__xp-mode-people-file-name) | grep -Eir "^$1;" -`
     local email=`echo $record | cut -d ';' -f 2`
 
     echo $email
