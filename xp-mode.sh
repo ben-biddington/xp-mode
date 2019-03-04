@@ -103,7 +103,7 @@ function __xp-mode-install-git-hooks {
         touch $f; chmod +x $f
 
         cat << 'EOF' > $f
-      #!/bin/bash
+#!/bin/bash
       #xp-mode
 
       file="$HOME/.xp-mode/current"
