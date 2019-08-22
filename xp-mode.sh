@@ -25,9 +25,18 @@ function pair() {
     fi
 
     #
+    # pair people
+    #
+    if [ "$1" = "people" ]; then
+        "${EDITOR:-vim}" $(__xp-mode-people-file-name)
+
+        return
+    fi
+
+    #
     # pair hooks
     #
-    
+
     if [ "$1" = "hooks" ]; then
         __xp-mode-install-git-hooks "$@"
 
