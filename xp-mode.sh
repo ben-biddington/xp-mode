@@ -13,7 +13,6 @@ function pair() {
     #
     # pair solo
     #
-
     if [ "$1" = "solo" ]; then
         local currentAuthorsFile="$(__xp-mode-current-authors-file-name)"
         
@@ -36,7 +35,6 @@ function pair() {
     #
     # pair hooks
     #
-
     if [ "$1" = "hooks" ]; then
         __xp-mode-install-git-hooks "$@"
 
