@@ -16,7 +16,7 @@ function before_each {
     echo "Lisa;  Lisa Shickadance; lisa@gmail.com"  >> $peopleFilename
 }
 
-test "how to use full names"
+pending "how to use full names"
 
   pair Ben,Lisa
 
