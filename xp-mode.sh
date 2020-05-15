@@ -61,7 +61,7 @@ function __xp-mode-dynamic-pair {
     for name in "${tmp[@]}"
     do
         if [ $(__xp-mode-is-known-person $name) = "1" ]; then
-            names+=($(echo $name | tr -d ' '))
+            names+=("$(__xp-mode-get-person-name "$name")")
 
             __xp-mode-save-author-email $name
         elif [ $(__xp-mode-is-known-person $name) -gt "1" ]; then
@@ -146,6 +146,11 @@ function __xp-mode-get-person-email {
     local email=`echo $record | cut -d ';' -f 2`
 
     echo $email
+}
+
+function __xp-mode-get-person-name {
+    local name=$1
+    echo "$name" | tr -d ' '
 }
 
 #
