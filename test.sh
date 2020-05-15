@@ -8,6 +8,7 @@ if [ ! -z $BUILD_SERVER ]; then
     do
         bash -c "$@ /bin/bash $file"
     done
+    cat $failures
     exit 0
 else
     echo "Running in container. Set \`BUILD_SERVER\` to any value to run in the current directory <`pwd`>."
