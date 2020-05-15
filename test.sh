@@ -22,14 +22,16 @@ else
 
     if [[ $TEST != "" ]]; then
         echo "Running single test file <$TEST>"
+        
         sudo docker exec xp-mode-test bash -c "$@ /bin/bash $TEST"
+        sudo docker cp xp-mode-test:$failures - >> .tmp
     else
         for file in ./test/*checks.sh
         do
             touch .tmp
 
             sudo docker exec xp-mode-test bash -c "$@ /bin/bash $file"
-            sudo docker cp xp-mode-test:$failures .tmp
+            sudo docker cp xp-mode-test:$failures - >> .tmp
 
             cat .tmp >> $failures
 
