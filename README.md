@@ -41,6 +41,8 @@ Lisa; lisa@gmail.com
 Denny; denny@gmail.com
 ```
 
+Include yourself to make it so you can just use the names of all the people in the group.
+
 ## Full names
 
 You may also use full names by adding a second field.
@@ -68,6 +70,8 @@ $ pair hooks -d
 ```
 
 # Usage
+
+I am Ben and I am about to work with Lisa and Denny.
 
 ```
 $ pair Ben,Lisa,Denny
