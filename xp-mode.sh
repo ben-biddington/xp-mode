@@ -145,9 +145,7 @@ function __xp-mode-people-file-name {
 }
 
 function __xp-mode-is-known-person {
-    local count=`cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1$" - | wc -l`
-    
-    echo $count
+    cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1$" - | wc -l
 }
 
 function __xp-mode-get-person-email {
