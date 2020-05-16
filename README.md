@@ -41,6 +41,16 @@ Lisa; lisa@gmail.com
 Denny; denny@gmail.com
 ```
 
+## Full names
+
+You may also use full names by adding a second field.
+
+```
+Ben;                    ben@gmail.com
+Lisa; Lisa Shickadance; lisa@gmail.com
+Denny;                  denny@gmail.com
+```
+
 # Options
 
 [Configure a `commit-msg` hook](https://github.com/ben-biddington/xp-mode/blob/master/test/installing-hooks-checks.sh):
@@ -73,7 +83,16 @@ Author: Ben, Lisa and Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     Push to master
+```
 
+or with full names:
+
+```
+commit 402c410f89947c88e3d4e42aefe199cf06917056
+Author: Ben, Lisa Shickadance and Denny <denny@gmail.com>
+Commit: Ben Biddington <ben@gmail.com>
+
+    Push to master
 ```
 
 [When you have hooks enabled, you get extra `Co-authored-by` trailers in your commits](https://github.com/ben-biddington/xp-mode/blob/master/test/commit-msg-hook-usage-checks.sh):
