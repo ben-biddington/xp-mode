@@ -153,9 +153,7 @@ function __xp-mode-is-known-person {
 function __xp-mode-get-person-email {
     local person=$(__xp-mode-get-person $name)
 
-    local email=${person##*;}
-
-    echo $email
+    echo ${person##*;}
 }
 
 function __xp-mode-get-person-name {
