@@ -14,6 +14,7 @@ function before_each {
     echo "Denny; Dan O'Donnell;    denny@gmail.com" >> $peopleFilename
     echo "Mark;                    mark@gmail.com"  >> $peopleFilename
     echo "Lisa;  Lisa Shickadance; lisa@gmail.com"  >> $peopleFilename
+    echo "Rip;   Rip Van Winkle;   rvw@gmail.com"   >> $peopleFilename
 }
 
 # TEST=./test/extended-name-checks.sh ./test.sh
@@ -37,3 +38,9 @@ test "You may mix the styles"
   pair Ben,Mark,Lisa
 
   gitAuthorMustEqual "Ben Biddington, Mark and Lisa Shickadance" "lisa@gmail.com"
+
+test "Full names may contain multiple words"
+
+  pair Ben,Rip,Mark
+
+  gitAuthorMustEqual "Ben Biddington, Rip Van Winkle and Mark" "mark@gmail.com"
