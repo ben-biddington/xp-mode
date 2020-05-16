@@ -56,10 +56,15 @@ function __xp-mode-dynamic-pair {
 
     local names=()
     local tmp
-    
+
     IFS=',' read -r -a tmp <<< "$@"
+    
+    local firstName=${tmp[0]}
+    local lastName=${tmp[@]: -1}
+
     for name in "${tmp[@]}"
     do
+        name="$(__xp-mode-trim $name)"
         if [ $(__xp-mode-is-known-person $name) = "1" ]; then
             names+=("$(__xp-mode-get-person-name "$name")")
 
@@ -77,18 +82,22 @@ function __xp-mode-dynamic-pair {
 
     local numberOfNames="${#names[@]}"
     local indexOfSecondLastName=$((numberOfNames-1))
-    local lastName=${names[numberOfNames - 1]}
+    
+    local groupName=""
 
-    local groupName=$(join "," ${names[@]:0:$indexOfSecondLastName})
+    for i in "${names[@]: 0: (${#names[@]} - 1)}"
+    do
+        groupName+=", $i"
+    done
 
-    groupName="${groupName//,/, }"
+    groupName="${groupName:2}"
 
     if [ $numberOfNames -eq 1 ]; then
-        groupName="$lastName"
+        groupName="${names[@]: -1}"
     else
-        groupName="${groupName} and $lastName"
+        groupName="${groupName} and ${names[@]: -1}"
     fi
-    
+
     __xp-mode-export "$groupName" $(__xp-mode-get-person-email $lastName)
 }
 
@@ -142,16 +151,41 @@ function __xp-mode-is-known-person {
 }
 
 function __xp-mode-get-person-email {
-    local record=`cat $(__xp-mode-people-file-name) | grep -Eir "^$1;" -`
-    local email=`echo $record | cut -d ';' -f 2`
+    local person=$(__xp-mode-get-person $name)
+
+    local email=${person##*;}
 
     echo $email
 }
 
 function __xp-mode-get-person-name {
     local name=$1
-    echo "$name" | tr -d ' '
+
+    local fullName=$(__xp-mode-get-person-full-name "$name")
+    local email=$(__xp-mode-get-person-email "$name")
+    
+    if [ "$fullName" == "$email" ]; then
+        __xp-mode-trace "Returning name <$name> because <$fullName> == <$email>"
+        echo "$(__xp-mode-trim "$name")"
+    else
+        __xp-mode-trace "Returning full name <$fullName> because <$fullName> != <$email>"
+        echo "$(__xp-mode-trim "$fullName")"
+    fi
 }
+
+function __xp-mode-get-person-full-name {
+    local name=$1
+
+    local person=$(__xp-mode-get-person $name)
+    local fullName=$(echo "$person" | cut -d ';' -f 2)
+    local trimmedName=$(__xp-mode-trim "$fullName")
+
+    __xp-mode-trace "Full name for <$name> is <$trimmedName> and person: ${person}"
+
+    echo "$trimmedName"
+}
+
+function __xp-mode-get-person { grep -Eir "^$1;" $(__xp-mode-people-file-name); }
 
 #
 # Save the supplied user's email address to `./.xp-mode/current`
@@ -166,7 +200,41 @@ function __xp-mode-save-author-email {
     fi
 }
 
-function join { local IFS="$1"; shift; echo "$*"; }
+function join { 
+    delimiter="$1"
+    
+    shift
+    
+    result=""
+
+    names="$@"
+
+    for i in "${names[@]}"
+    do
+        result+="$delimiter$i"
+    done
+
+    echo "${result:1}"
+}
+
+function __xp-mode-trace {
+    
+    if [ "$TRACE" != "" ]; then
+        mkdir logs &> /dev/null
+        echo -e "[trace] "$1"" >> logs/trace-log
+    fi
+}
+
+# https://www.cyberciti.biz/faq/bash-remove-whitespace-from-string/
+function __xp-mode-trim {
+    shopt -s extglob
+
+    local result="${1##*( )}"
+ 
+    echo "${result%%*( )}"
+
+    shopt -u extglob
+}
 
 function __xp-mode-current-authors-file-name {
     echo "$HOME/.xp-mode/current"

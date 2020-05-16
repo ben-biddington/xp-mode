@@ -64,7 +64,7 @@ test "it fails when name is duplicate"
 
   mustMatch "The person <Mark> is duplicated" "$result"
 
-test "it greedy matches names"
+test "it lazy matches names"
 
   echo "AlexG; alex.g@gmail.com" >> $peopleFilename
   echo "Alex; alex.l@gmail.com" >> $peopleFilename

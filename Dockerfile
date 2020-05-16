@@ -2,5 +2,7 @@
 
 FROM ubuntu
 
+ENV TRACE=""
+
 RUN apt-get update
 RUN apt-get install -y git curl tree
