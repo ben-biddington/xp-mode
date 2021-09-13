@@ -41,7 +41,9 @@ test 'it adds `Co-authored-by` trailers to your commit'
   expected="Push to master
 
 Co-authored-by: Mob <darren@gmail.com>
-Co-authored-by: Mob <wanda@gmail.com>"
+Co-authored-by: Mob <wanda@gmail.com>
+Co-authored-by: Mob <ben@gmail.com>
+"
 
   lastCommitMessageMustBe "$expected"
   
