@@ -131,7 +131,11 @@ function __xp-mode-install-git-hooks {
 
         for email in $(cat "$file"); do 
           echo "Co-authored-by: Mob <$email>" >> $commitMsg
-        done; 
+        done;
+
+        if [ $(cat "$file" | wc -l) -gt 0 ]; then
+          echo "Co-authored-by: Mob <$(git config user.email)>" >> $commitMsg
+        fi
      fi; 
 EOF
         
