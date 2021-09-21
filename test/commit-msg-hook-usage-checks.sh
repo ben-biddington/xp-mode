@@ -18,7 +18,6 @@ function before_each {
     echo "Alan; alan@gmail.com"                   >> $peopleFilename
     echo "Darren; darren@gmail.com"               >> $peopleFilename
     echo "Wanda; wanda@gmail.com"                 >> $peopleFilename
-    echo "Lisa; Lisa Shickadance; lisa@gmail.com" >> $peopleFilename
     
     cd $tempDir
 }
@@ -50,6 +49,8 @@ Co-authored-by: Mob <ben@gmail.com>"
   after_each
 
 test 'it adds full name instead of "Mob" if there is one'
+
+  echo "Lisa; Lisa Shickadance; lisa@gmail.com" >> $peopleFilename
 
   pair hooks
 
