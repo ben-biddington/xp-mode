@@ -92,3 +92,29 @@ test 'it does not add `Co-authored-by` when \`current\` file is empty'
   lastCommitMessageMustBe "Push to master"
 
   after_each
+
+test 'it does not add `Co-authored-by` when any are already present, for example when amending commits'
+
+  pair hooks
+
+  pair Darren,Wanda
+  
+  commit "Push to trnk"
+
+  git commit -am "Push to trunk" --amend 
+
+  expected="Push to trunk
+
+Co-authored-by: Mob <darren@gmail.com>
+Co-authored-by: Mob <wanda@gmail.com>
+Co-authored-by: Ben <ben@gmail.com>"
+
+  lastCommitMessageMustBe "$expected"
+  
+  after_each
+
+# Unable to automate the case of interactive amend
+#
+#   git commit --amend
+#
+# whixh is where the issue presents. 
