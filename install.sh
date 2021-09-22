@@ -2,7 +2,7 @@
 
 install_dir=$HOME
 
-echo "Installing xp-mode to <$install_dir>"
+echo -e "Installing xp-mode to <$install_dir>\n"
 
 file="xp-mode.sh"
 url="https://raw.githubusercontent.com/ben-biddington/xp-mode/master/xp-mode.sh"
@@ -17,13 +17,19 @@ fi
 
 if [ -z $SKIP_DOWNLOAD ]; then
     if [ -f $filename ]; then
-        echo "Deleting file at <$filename>"
+        echo -e "Deleting file at <$filename>\n"
         rm $filename
     fi
 
-    echo "Downloading <$url> to <$filename>"
+    upstreamHash=$(curl -s $url | md5sum - | awk '{ print $1 }')
+
+    echo -e "Downloading <$url> to <$filename>\n"
+
+    echo -e "Hash for <$url> is:\n\n\t$upstreamHash\n"
 
     curl -s $url > $filename
+
+    echo -e "Hash for <$filename> is:\n\n\t$(md5sum $filename | awk '{ print $1 }')\n"
 else
     cp xp-mode.sh $filename
 fi
@@ -40,5 +46,5 @@ if [ ! -f $people_file ]; then
     touch $people_file
     echo "People file created at <$people_file>"
 else
-    echo "People file already exists at <$people_file>"
+    echo "People file already exists at <$people_file>, leaving it alone"
 fi
