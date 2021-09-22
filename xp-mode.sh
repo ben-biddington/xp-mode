@@ -166,9 +166,9 @@ function __xp-mode-install-git-hooks {
       }
 
       if [ -f "$file" ]; then 
-        commitMsg="$1"
+        commitMsgFile="$1"
 
-        echo "" >> $commitMsg
+        echo "" >> $commitMsgFile
 
         # https://www.git-scm.com/docs/git-interpret-trailers
         git config trailer.coAuthor.key "Co-authored-by: "
@@ -176,20 +176,20 @@ function __xp-mode-install-git-hooks {
         git config trailer.coAuthor.ifexists addIfDifferent
 
         for email in $(cat "$file"); do
-          git interpret-trailers --in-place --trailer "coAuthor: $(get-full-name "$email") <$email>" "$1" >> $commitMsg
+          git interpret-trailers --in-place --trailer "coAuthor:$(get-full-name "$email") <$email>" "$1"
 
           # Keep this in case `interpret-trailers` is not widespread
-          # echo "Co-authored-by: $(get-full-name "$email") <$email>" >> $commitMsg
+          # echo "Co-authored-by: $(get-full-name "$email") <$email>" >> $commitMsgFile
         done;
 
         if [ $(cat "$file" | wc -l) -gt 0 ]; then
-          git interpret-trailers --in-place --trailer "coAuthor: $(git config user.name) <$(git config user.email)>" "$1" >> $commitMsg 
+          git interpret-trailers --in-place --trailer "coAuthor:$(git config user.name) <$(git config user.email)>" "$1"
 
           # Keep this in case `interpret-trailers` is not widespread
-          # echo "Co-authored-by: $(git config user.name) <$(git config user.email)>" >> $commitMsg
+          # echo "Co-authored-by: $(git config user.name) <$(git config user.email)>" >> $commitMsgFile
         fi
 
-        echo "" >> $commitMsg
+        echo "" >> $commitMsgFile
      fi; 
 EOF
         
