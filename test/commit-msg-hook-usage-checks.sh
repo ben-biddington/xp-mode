@@ -15,9 +15,10 @@ function before_each {
 
     clobber $peopleFilename;
 
-    echo "Alan; alan@gmail.com"     >> $peopleFilename
-    echo "Darren; darren@gmail.com" >> $peopleFilename
-    echo "Wanda; wanda@gmail.com"   >> $peopleFilename
+    echo "Alan; alan@gmail.com"                   >> $peopleFilename
+    echo "Darren; darren@gmail.com"               >> $peopleFilename
+    echo "Wanda; wanda@gmail.com"                 >> $peopleFilename
+    echo "Lisa; Lisa Shickadance; lisa@gmail.com" >> $peopleFilename
     
     cd $tempDir
 }
@@ -41,6 +42,25 @@ test 'it adds `Co-authored-by` trailers to your commit'
   expected="Push to master
 
 Co-authored-by: Mob <darren@gmail.com>
+Co-authored-by: Mob <wanda@gmail.com>
+Co-authored-by: Mob <ben@gmail.com>"
+
+  lastCommitMessageMustBe "$expected"
+  
+  after_each
+
+test 'it adds full name instead of "Mob" if there is one'
+
+  pair hooks
+
+  pair Darren,Lisa,Wanda
+  
+  commit "Push to master"
+  
+  expected="Push to master
+
+Co-authored-by: Mob <darren@gmail.com>
+Co-authored-by: Lisa Shickadance <lisa@gmail.com>
 Co-authored-by: Mob <wanda@gmail.com>
 Co-authored-by: Mob <ben@gmail.com>"
 

@@ -123,6 +123,31 @@ function __xp-mode-install-git-hooks {
       #xp-mode
 
       file="$HOME/.xp-mode/current"
+      peopleFile="$HOME/.xp-mode/people"
+
+      function __trim {
+        shopt -s extglob
+
+        local result="${1##*( )}"
+
+        echo "${result%%*( )}"
+
+        shopt -u extglob
+      }
+
+      function get-full-name {
+        local email=$1
+
+        local person=$(grep -Eir "$email" "$peopleFile")
+        local fullName=$(echo "$person" | cut -d ';' -f 2)
+        local trimmed=$(__trim "$fullName")
+
+        if [ "$trimmed" != "$email" ]; then
+          echo "$trimmed"
+        else
+          echo "Mob"
+        fi
+      }
 
       if [ -f "$file" ]; then 
         commitMsg="$1"
@@ -130,11 +155,11 @@ function __xp-mode-install-git-hooks {
         echo "" >> $commitMsg 
 
         for email in $(cat "$file"); do 
-          echo "Co-authored-by: Mob <$email>" >> $commitMsg
+          echo "Co-authored-by: $(get-full-name "$email") <$email>" >> $commitMsg
         done;
 
         if [ $(cat "$file" | wc -l) -gt 0 ]; then
-          echo "Co-authored-by: Mob <$(git config user.email)>" >> $commitMsg
+          echo "Co-authored-by: $(get-full-name "$email") <$(git config user.email)>" >> $commitMsg
         fi
      fi; 
 EOF

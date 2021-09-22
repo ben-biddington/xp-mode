@@ -14,5 +14,3 @@ test "it downloads and updates \`xp-mode.sh\`"
   echo "$result"
   
   mustMatch "Installing xp-mode" "$result"
-
-
