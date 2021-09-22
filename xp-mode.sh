@@ -159,7 +159,7 @@ function __xp-mode-install-git-hooks {
         done;
 
         if [ $(cat "$file" | wc -l) -gt 0 ]; then
-          echo "Co-authored-by: $(get-full-name "$email") <$(git config user.email)>" >> $commitMsg
+          echo "Co-authored-by: $(git config user.name) <$(git config user.email)>" >> $commitMsg
         fi
      fi; 
 EOF

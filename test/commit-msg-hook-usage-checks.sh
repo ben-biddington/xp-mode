@@ -42,7 +42,7 @@ test 'it adds `Co-authored-by` trailers to your commit'
 
 Co-authored-by: Mob <darren@gmail.com>
 Co-authored-by: Mob <wanda@gmail.com>
-Co-authored-by: Mob <ben@gmail.com>"
+Co-authored-by: Ben <ben@gmail.com>"
 
   lastCommitMessageMustBe "$expected"
   
@@ -63,7 +63,7 @@ test 'it adds full name instead of "Mob" if there is one'
 Co-authored-by: Mob <darren@gmail.com>
 Co-authored-by: Lisa Shickadance <lisa@gmail.com>
 Co-authored-by: Mob <wanda@gmail.com>
-Co-authored-by: Mob <ben@gmail.com>"
+Co-authored-by: Ben <ben@gmail.com>"
 
   lastCommitMessageMustBe "$expected"
   
