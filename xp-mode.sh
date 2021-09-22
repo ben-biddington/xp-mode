@@ -298,7 +298,9 @@ function __xp-mode-current-authors-file-name {
 # update source
 #
 function __xp-mode-update {
-    echo "Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh"
+    echo -e "Running the following command in 5 seconds:\n\t"
+    echo "curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh"
+    echo ""
 
     sleep 5
 
