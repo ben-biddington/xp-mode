@@ -40,6 +40,22 @@ function pair() {
 
         return
     fi
+
+    #
+    # pair ?
+    #
+    if [ "$1" = "?" ]; then
+
+        if [ -f $(__xp-mode-current-authors-file-name) ]; then
+          echo -e "Authors:\n\n\t$GIT_AUTHOR_NAME\n"
+          echo -e "Author email:\n\n\t$GIT_AUTHOR_EMAIL\n"
+          echo -e "Committer:\n\n\t$(git config user.name) <$(git config user.email)>\n"
+        else
+          echo -e "You are currently working solo. Both author and committer are:\n\n\t$(git config user.name) <$(git config user.email)>\n"
+        fi
+
+        return
+    fi
     
     #
     # pair Ben, Denny, Lisa
