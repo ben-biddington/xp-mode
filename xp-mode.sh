@@ -16,7 +16,7 @@ function pair() {
     if [ "$1" = "solo" ]; then
         local currentAuthorsFile="$(__xp-mode-current-authors-file-name)"
         
-        if [ -f $currentAuthorsFile ]; then rm $currentAuthorsFile; fi
+        if [ -f "$currentAuthorsFile" ]; then rm "$currentAuthorsFile"; fi
         
         __xp-mode-export "$(git config user.name)" "$(git config user.email)"
 
@@ -27,7 +27,7 @@ function pair() {
     # pair people
     #
     if [ "$1" = "people" ]; then
-        "${EDITOR:-vim}" $(__xp-mode-people-file-name)
+        "${EDITOR:-vim}" "$(__xp-mode-people-file-name)"
 
         return
     fi
@@ -64,11 +64,11 @@ function pair() {
 }
 
 function __xp-mode-dynamic-pair {
-    local currentEmailsFilename="$(__xp-mode-current-authors-file-name)"
+    local currentEmailsFilename=$(__xp-mode-current-authors-file-name)
     
-    local filename=$(__xp-mode-people-file-name)
+    local filename="$(__xp-mode-people-file-name)"
 
-    :> $currentEmailsFilename
+    :> "$currentEmailsFilename"
 
     local names=()
     local tmp
@@ -203,7 +203,7 @@ function __xp-mode-people-file-name {
 }
 
 function __xp-mode-is-known-person {
-    cat $(__xp-mode-people-file-name) | cut -d ";" -f 1 | grep -Eir "$1$" - | wc -l
+    cat "$(__xp-mode-people-file-name)" | cut -d ";" -f 1 | grep -Eir "$1$" - | wc -l
 }
 
 function __xp-mode-get-person-email {
@@ -239,7 +239,7 @@ function __xp-mode-get-person-full-name {
     echo "$trimmedName"
 }
 
-function __xp-mode-get-person { grep -Eir "^$1;" $(__xp-mode-people-file-name); }
+function __xp-mode-get-person { grep -Eir "^$1;" "$(__xp-mode-people-file-name)"; }
 
 #
 # Save the supplied user's email address to `./.xp-mode/current`
@@ -247,10 +247,10 @@ function __xp-mode-get-person { grep -Eir "^$1;" $(__xp-mode-people-file-name); 
 function __xp-mode-save-author-email {
     local currentEmailsFilename=$(__xp-mode-current-authors-file-name)
     local committerEmail=$(git config user.email)
-    local email=$(__xp-mode-get-person-email $1)
+    local email="$(__xp-mode-get-person-email $1)"
 
     if [ "$email" != "$committerEmail" ]; then
-       echo $email >> $currentEmailsFilename
+       echo $email >> "$currentEmailsFilename"
     fi
 }
 
