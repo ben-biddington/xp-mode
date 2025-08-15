@@ -7,7 +7,7 @@
 On a POSIXish system:
 
 ```
-curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh 
+curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh
 ```
 
 [Read what installer does](/install.sh)
@@ -17,7 +17,7 @@ curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh 
 Run `pair update`
 
 ```
-ben@bang:~/sauce/xp-mode$ pair update 
+ben@bang:~/sauce/xp-mode$ pair update
 Running the following in 5s: curl https://raw.githubusercontent.com/ben-biddington/xp-mode/master/install.sh | bash && source ~/xp-mode.sh
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -77,9 +77,9 @@ I am Ben and I am about to work with Lisa and Denny.
 $ pair Ben,Lisa,Denny
 ```
 
-* [Author name is the names of the people you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
-* [Author email is the email address of the last person in the list you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
-* [Committer is set to whatever you have set as git config `user.name` and `user.email`](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
+- [Author name is the names of the people you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
+- [Author email is the email address of the last person in the list you selected](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
+- [Committer is set to whatever you have set as git config `user.name` and `user.email`](https://github.com/ben-biddington/xp-mode/blob/master/test/select-by-name-checks.sh)
 
 ```
 commit 402c410f89947c88e3d4e42aefe199cf06917056
@@ -107,7 +107,7 @@ Author: Ben, Lisa and Denny <denny@gmail.com>
 Commit: Ben Biddington <ben@gmail.com>
 
     And use small batches
-    
+
     Co-authored-by: Mob <ben@gmail.com>
     Co-authored-by: Mob <lisa@gmail.com>
     Co-authored-by: Mob <denny@gmail.com>
@@ -120,15 +120,27 @@ To [revert to normal operation](https://github.com/ben-biddington/xp-mode/blob/m
 pair solo
 ```
 
+# Running tests
+
+```sh
+./test.sh
+```
+
+## Run single test
+
+Use the `TEST` environment variable.
+
+```sh
+    TEST=./test/extended-name-checks.sh ./test.sh
+```
+
 # FAQ
 
-* Setting persists only within the current terminal session
+- Setting persists only within the current terminal session
 
 # Notes
 
-* Bash function is the only practical way to set `GIT_AUTHOR_{NAME,EMAIL}`
-* Also tried [git_scripts](https://github.com/ben-biddington/git_scripts/tree/f/optional_committer), but subshells are not suitable
-* The only [git config](https://www.kernel.org/pub/software/scm/git/docs/git-config.html) options seem to be `user.name` and `user.email` which are used to set *both* author *and* committer. Temporarily setting them is not an option.
-* Git hooks are no good either because they run in a child shell and cannot therefore affect the `GIT_AUTHOR_{NAME,EMAIL}` environment variables
-
-
+- Bash function is the only practical way to set `GIT_AUTHOR_{NAME,EMAIL}`
+- Also tried [git_scripts](https://github.com/ben-biddington/git_scripts/tree/f/optional_committer), but subshells are not suitable
+- The only [git config](https://www.kernel.org/pub/software/scm/git/docs/git-config.html) options seem to be `user.name` and `user.email` which are used to set _both_ author _and_ committer. Temporarily setting them is not an option.
+- Git hooks are no good either because they run in a child shell and cannot therefore affect the `GIT_AUTHOR_{NAME,EMAIL}` environment variables
