@@ -117,4 +117,4 @@ Co-authored-by: Ben <ben@gmail.com>"
 #
 #   git commit --amend
 #
-# whixh is where the issue presents. 
+# which is where the issue presents. 

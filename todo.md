@@ -6,7 +6,7 @@ Author: Ben, Lisa Shickadance and Denny <denny@gmail.com>
 Date:   Sun May 17 10:03:35 2020 +1200
 
     Refactor: clarify
-    
+
     Co-authored-by: Mob <lisa@gmail.com>
     Co-authored-by: Mob <denny@gmail.com>
 ```
@@ -16,3 +16,5 @@ It would be nice to have `Co-authored-by: Lisa Shickadance <lisa@gmail.com>`.
 ## Deduplicate trailers when amending
 
 If you amend a commit, you get the trailers added twice.
+
+## Handle the case where a commit hook is already present
