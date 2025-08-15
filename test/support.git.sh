@@ -5,6 +5,8 @@ function newTemporaryGitRepository {
 
     cd $tempDir > /dev/null
 
+    git config --global init.defaultBranch trunk
+
     git init > /dev/null
 
     cd - > /dev/null
