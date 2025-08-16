@@ -37,6 +37,19 @@ test "it makes a hook file and it has the #xp-mode tag in it"
   
   after_each
 
+test "it honours hookspath git configuration"
+  mkdir custom-hooks-dir 
+  
+  git config core.hookspath ./custom-hooks-dir
+  
+  pair hooks
+
+  fileMustExist "$tempDir/custom-hooks-dir/commit-msg"
+
+  fileMustContain "#xp-mode" "$tempDir/custom-hooks-dir/commit-msg"
+  
+  after_each
+
 test "it skips if it one is already present"
 
   touch "$tempDir/.git/hooks/commit-msg"

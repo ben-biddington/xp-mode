@@ -118,7 +118,13 @@ function __xp-mode-dynamic-pair {
 }
 
 function __xp-mode-install-git-hooks {
-    local f="$PWD/.git/hooks/commit-msg"
+    local hooksPath=$(git config --get core.hookspath)
+
+    if [ "$hooksPath" = "" ]; then
+        hooksPath="$PWD/.git/hooks"
+    fi
+
+    local f="$hooksPath/commit-msg"
 
     if [ "$2" = "-d" ]; then
         if [ -f $f ]; then
