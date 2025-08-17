@@ -155,6 +155,8 @@ function __xp-mode-install-git-hooks {
     # [!] Add the entry first to guarantee it runs.
     local firstLine="$(head -n 1 $commitMessageHook)"
 
+    sed -i '/#xp-mode/d' $commitMessageHook
+
     if [ $(grep -Eir '^#!' $commitMessageHook | wc -l) -gt 0 ]; then
         sed -i "2 i $newLine" $commitMessageHook 
     else

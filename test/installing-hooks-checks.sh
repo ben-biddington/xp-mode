@@ -57,6 +57,17 @@ DEF"
   
   after_each
 
+test "it does not add duplicate references in commit-msg hook"
+
+pair hooks
+pair hooks
+
+  expected="$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode"
+
+  fileMustEqual "$expected" "$tempDir/.git/hooks/commit-msg"
+  
+  after_each
+
 test "it creates hook file in <\$HOME/.xp-mode> so we can reference it instead of inlining it"
 
   pair hooks
