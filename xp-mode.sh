@@ -140,15 +140,26 @@ function __xp-mode-install-git-hooks {
         return
     fi
 
-    #
-    # Add xp-mode hook reference
-    #
+    
     if [ ! -f $commitMessageHook ]; then
         touch $commitMessageHook
         chmod +x $commitMessageHook
     fi
 
-    echo "$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode" >> $commitMessageHook
+    #
+    # Add xp-mode hook reference to $commitMessageHook
+    #
+
+    local newLine="$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode"
+
+    # [!] Add the entry first to guarantee it runs.
+    local firstLine="$(head -n 1 $commitMessageHook)"
+
+    if [ $(grep -Eir '^#!' $commitMessageHook | wc -l) -gt 0 ]; then
+        sed -i "2 i $newLine" $commitMessageHook 
+    else
+        echo "$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode" >> $commitMessageHook
+    fi
 }
 
 function __xp-mode-ensure-commit-msg-hook {

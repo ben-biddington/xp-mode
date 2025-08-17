@@ -1,5 +1,6 @@
 # colors: http://misc.flogisoft.com/bash/tip_colors_and_formatting#bash_tipscolors_and_formatting_ansivt100_control_sequences
-set -e
+# https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
+set -eo pipefail
 
 filename="$HOME/.xp-mode/pairs"
 peopleFilename="$HOME/.xp-mode/people"

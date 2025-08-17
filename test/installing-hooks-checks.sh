@@ -31,22 +31,27 @@ test "it makes a hook file and it has the #xp-mode tag in it"
 
   pair hooks
 
+  cat "$tempDir/.git/hooks/commit-msg"
+
   fileMustExist "$tempDir/.git/hooks/commit-msg"
 
   fileMustContain "#xp-mode" "$tempDir/.git/hooks/commit-msg"
   
   after_each
 
-test "it appends to the end of an existing commit-msg hook"
+# [!] Putting it at the start because Husky exits early, preventing subsequent scripts form running, so adding at the end does nothing
+test "it appends to the beginning of an existing commit-msg hook"
 
+  echo "#!/bin/bash" >> "$tempDir/.git/hooks/commit-msg"
   echo "ABC" >> "$tempDir/.git/hooks/commit-msg"
   echo "DEF" >> "$tempDir/.git/hooks/commit-msg"
 
   pair hooks
 
-  expected="ABC
-DEF
-$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode"
+  expected="#!/bin/bash
+$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode
+ABC
+DEF"
 
   fileMustEqual "$expected" "$tempDir/.git/hooks/commit-msg"
   
