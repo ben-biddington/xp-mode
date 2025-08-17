@@ -37,7 +37,32 @@ test "it makes a hook file and it has the #xp-mode tag in it"
   
   after_each
 
-test "it honours hookspath git configuration"
+test "it appends to the end of an existing commit-msg hook"
+
+  echo "ABC" >> "$tempDir/.git/hooks/commit-msg"
+  echo "DEF" >> "$tempDir/.git/hooks/commit-msg"
+
+  pair hooks
+
+  expected="ABC
+DEF
+$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode"
+
+  fileMustEqual "$expected" "$tempDir/.git/hooks/commit-msg"
+  
+  after_each
+
+test "it creates hook file in <\$HOME/.xp-mode> so we can reference it instead of inlining it"
+
+  pair hooks
+
+  fileMustExist "$HOME/.xp-mode/git-hooks/commit-msg"
+
+  fileMustContain "#xp-mode" "$HOME/.xp-mode/git-hooks/commit-msg"
+  
+  after_each
+
+test "it honours <core.hookspath> git configuration"
   mkdir custom-hooks-dir 
   
   git config core.hookspath ./custom-hooks-dir
@@ -60,23 +85,18 @@ test "it skips if it one is already present"
   
   after_each
 
-test "use the \`hooks -d\` command to remove hooks"
+test "Use \`hooks -d\` to remove xp-mode reference, leaving the rest of the file alone"
+
+  echo "ABC" >> "$tempDir/.git/hooks/commit-msg"
 
   pair hooks
 
   pair hooks -d
 
-  fileMustNotExist "$tempDir/.git/hooks/commit-msg"
-
-  after_each
-
-test "only deletes the hook if it is ours"
-
-  touch "$tempDir/.git/hooks/commit-msg"
-
-  pair hooks -d
-
   fileMustExist "$tempDir/.git/hooks/commit-msg"
+
+  fileMustContain "ABC" "$tempDir/.git/hooks/commit-msg"
+  fileMustNotContain "#xp-mode" "$tempDir/.git/hooks/commit-msg"
 
   after_each
 

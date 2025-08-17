@@ -44,8 +44,7 @@ function pair() {
     #
     # pair ?
     #
-    if [ "$1" = "?" ]; then
-
+    if [ "$1" = "?" ]; then        
         if [ -f $(__xp-mode-current-authors-file-name) ]; then
           echo -e "Authors:\n\n\t$GIT_AUTHOR_NAME\n"
           echo -e "Author email:\n\n\t$GIT_AUTHOR_EMAIL\n"
@@ -118,29 +117,53 @@ function __xp-mode-dynamic-pair {
 }
 
 function __xp-mode-install-git-hooks {
+    __xp-mode-ensure-commit-msg-hook # "$HOME/.xp-mode/git-hooks" may now be referenced
+
     local hooksPath=$(git config --get core.hookspath)
 
     if [ "$hooksPath" = "" ]; then
-        hooksPath="$PWD/.git/hooks"
+        hooksPath="$PWD/.git/hooks";
     fi
 
-    local f="$hooksPath/commit-msg"
+    local commitMessageHook="$hooksPath/commit-msg"
 
+    #
+    # Remove xp-mode hook
+    #
     if [ "$2" = "-d" ]; then
-        if [ -f $f ]; then
-            if [[ $(grep -Eir "#xp-mode" $f | wc -l) -gt 0 ]]; then
-                rm -f $f
-            fi
+        if [ -f $commitMessageHook ]; then
+            sed -i '/#xp-mode/d' $commitMessageHook
         else
-            echo "The file <$f> does not exist, nothing to delete"
+            echo "The file <$commitMessageHook> does not exist, nothing to delete"
         fi
+
         return
     fi
 
-    if [ ! -f $f ]; then
-        touch $f; chmod +x $f
+    #
+    # Add xp-mode hook reference
+    #
+    if [ ! -f $commitMessageHook ]; then
+        touch $commitMessageHook
+        chmod +x $commitMessageHook
+    fi
 
-        cat << 'EOF' > $f
+    echo "$HOME/.xp-mode/git-hooks/commit-msg \$1 #xp-mode" >> $commitMessageHook
+}
+
+function __xp-mode-ensure-commit-msg-hook {
+    local xpModeHookDir="$HOME/.xp-mode/git-hooks"
+
+    if [ ! -d "$xpModeHookDir" ]; then
+        mkdir -p $xpModeHookDir
+    fi
+
+    local xpModeCommitMessageHookFile="$xpModeHookDir/commit-msg"
+
+    if [ ! -f $xpModeCommitMessageHookFile ]; then
+        touch $xpModeCommitMessageHookFile; chmod +x $xpModeCommitMessageHookFile
+
+        cat << 'EOF' > $xpModeCommitMessageHookFile
 #!/bin/bash
       #xp-mode
 
@@ -200,7 +223,7 @@ function __xp-mode-install-git-hooks {
 EOF
         
     else
-        echo "You already have a commit-msg hook present at <$f>, skipping"
+        echo "You already have a commit-msg hook present at <$xpModeCommitMessageHookFile>, skipping"
     fi
 }
 

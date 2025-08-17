@@ -69,11 +69,11 @@ function gitAuthorMustBeUnset {
 
 function gitAuthorMustEqual {
     if [ "$GIT_AUTHOR_NAME" != "$1" ]; then
-        fail "\nExpected GIT_AUTHOR_NAME environment variabe to be <$1>, got <$GIT_AUTHOR_NAME>"
+        fail "\nExpected GIT_AUTHOR_NAME environment variable to be <$1>, got <$GIT_AUTHOR_NAME>"
     fi
 
     if [ "$GIT_AUTHOR_EMAIL" != "$2" ]; then
-        fail "\nExpected GIT_AUTHOR_EMAIL environment variabe to be <$2>, got <$GIT_AUTHOR_EMAIL>"
+        fail "\nExpected GIT_AUTHOR_EMAIL environment variable to be <$2>, got <$GIT_AUTHOR_EMAIL>"
     fi
 }
 
@@ -82,7 +82,7 @@ function mustBe {
     local actual="$2"
 
     if [[ "$actual" != "$expected" ]]; then
-        fail "Expected:\n\n$expected\n\nGot:\n\n$actual"
+        fail "Expected:\n\n$expected\n\nGot:\n\n$actual\n\n$(diff  <(echo "$expected" ) <(echo "$actual"))"
     fi
 }
 
@@ -185,4 +185,11 @@ function after_each
 function fn_exists()
 {
     type $1 | grep -q 'shell function'
+}
+
+# Delete leading and trailing whitespace from each line and delete blank lines
+function trim() {
+    # Deletes new lines
+    # echo "$1" | xargs echo -n
+    echo -e "$1" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e '/^$/d'
 }

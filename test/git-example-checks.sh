@@ -30,21 +30,19 @@ function after_each {
     debug "Current directory is now <$(pwd)>"
 }
 
-test "it sets author and commiter"
+test "it sets author and committer"
 
-  pair Ben,Richard,Denny
+  pair Ben, Lisa, Denny
   
   commit "Push to master"
   
-  expected="
-Author: Ben, Lisa and Denny <denny@gmail.com>
-Commit: Ben <ben@gmail.com>
+  lastCommitMustBe "
+
+    Author: Ben, Lisa and Denny <denny@gmail.com>
+    Commit: Ben Biddington <ben@gmail.com>
 
     Push to master
-
-"
-
-  lastCommitMustContain "$expected"
+  "
   
   after_each
 
@@ -56,18 +54,17 @@ test "it adds Co-authored-by trailers when hooks are enabled"
   
   commit "And use small batches"
   
-  expected="
-Author: Ben, Lisa and Denny <denny@gmail.com>
-Commit: Ben <ben@gmail.com>
+  lastCommitMustBe "
 
-    And use small batches
+    Author: Ben, Lisa and Denny <denny@gmail.com> 
+    Commit: Ben Biddington <ben@gmail.com>
 
-    Co-authored-by: Mob <ben@gmail.com>
+        And use small batches
+
     Co-authored-by: Mob <lisa@gmail.com>
     Co-authored-by: Mob <denny@gmail.com>
-"
-
-  lastCommitMustContain "$expected"
+    Co-authored-by: Ben Biddington <ben@gmail.com>
+  
+  "
   
   after_each
-

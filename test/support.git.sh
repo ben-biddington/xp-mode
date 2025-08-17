@@ -14,10 +14,16 @@ function newTemporaryGitRepository {
     echo $tempDir
 }
 
-function lastCommitMessageMustBe {
-    theCommitMessage="$(git log --format=%B -n 1)"
+function lastCommitMustBe {
+    theCommitMessage="$(git log --format='Author: %an <%ae>%nCommit: %cN <%ce>%n%n%B%n' -n 1)"
 
-    mustBe "$1" "$theCommitMessage"
+    mustBe "$(trim "$1")" "$(trim "$theCommitMessage")"
+}
+
+function lastCommitMessageMustBe {
+    theCommitMessage="$(git log --format='%B' -n 1)"
+
+    mustBe "$(trim "$1")" "$(trim "$theCommitMessage")"
 }
 
 # todo: assert this by only comparing the supplied lines
@@ -27,9 +33,9 @@ function lastCommitMustContain {
 
     echo "$theCommitMessage" 
     
-    #mustBe "$1" "$theCommitMessage"
+    mustBe "$1" "$theCommitMessage"
 }
-  
+
 function commit {
     message=$1
 

@@ -38,13 +38,15 @@ test 'it adds `Co-authored-by` trailers to your commit'
   
   commit "Push to master"
   
-  expected="Push to master
+  lastCommitMessageMustBe "
+    
+        Push to master
 
-Co-authored-by: Mob <darren@gmail.com>
-Co-authored-by: Mob <wanda@gmail.com>
-Co-authored-by: Ben <ben@gmail.com>"
-
-  lastCommitMessageMustBe "$expected"
+    Co-authored-by: Mob <darren@gmail.com>
+    Co-authored-by: Mob <wanda@gmail.com>
+    Co-authored-by: Ben <ben@gmail.com>
+    
+  "
   
   after_each
 
@@ -57,64 +59,69 @@ test 'it adds full name instead of "Mob" if there is one'
   pair Darren,Lisa,Wanda
   
   commit "Push to master"
+
+  lastCommitMessageMustBe "
   
-  expected="Push to master
+        Push to master
 
-Co-authored-by: Mob <darren@gmail.com>
-Co-authored-by: Lisa Shickadance <lisa@gmail.com>
-Co-authored-by: Mob <wanda@gmail.com>
-Co-authored-by: Ben <ben@gmail.com>"
-
-  lastCommitMessageMustBe "$expected"
+    Co-authored-by: Mob <darren@gmail.com>
+    Co-authored-by: Lisa Shickadance <lisa@gmail.com>
+    Co-authored-by: Mob <wanda@gmail.com>
+    Co-authored-by: Ben <ben@gmail.com>
+  "
   
   after_each
 
 test 'it does not add `Co-authored-by` when no pair has been set'
 
-  $(pair hooks)
+  pair hooks
 
   clobber "$HOME/.xp-mode/current"
 
   commit "Push to master"
 
-  lastCommitMessageMustBe "Push to master"
+  lastCommitMessageMustBe "
+  
+    Push to master
+  
+  "
 
   after_each
 
 test 'it does not add `Co-authored-by` when \`current\` file is empty'
 
-  $(pair hooks)
+  pair hooks
 
   clobber "$HOME/.xp-mode/current"; touch "$HOME/.xp-mode/current"
 
   commit "Push to master"
 
-  lastCommitMessageMustBe "Push to master"
+  lastCommitMessageMustBe "
+  
+    Push to master
+  
+  "
 
   after_each
 
-test 'it does not add `Co-authored-by` when any are already present, for example when amending commits'
+test 'it does not add duplicate `Co-authored-by` trailer when any are already present, for example when amending commits'
 
   pair hooks
 
   pair Darren,Wanda
   
-  commit "Push to trnk"
+  commit "Push to trnk" # typo
 
   git commit -am "Push to trunk" --amend 
 
-  expected="Push to trunk
+  lastCommitMessageMustBe "
+    
+        Push to trunk
 
-Co-authored-by: Mob <darren@gmail.com>
-Co-authored-by: Mob <wanda@gmail.com>
-Co-authored-by: Ben <ben@gmail.com>"
+    Co-authored-by: Mob <darren@gmail.com>
+    Co-authored-by: Mob <wanda@gmail.com>
+    Co-authored-by: Ben <ben@gmail.com>
 
-  lastCommitMessageMustBe "$expected"
+  "
   
   after_each
-
-# Unable to automate the case of interactive amend
-#
-#   git commit --amend
-#
-# which is where the issue presents. 

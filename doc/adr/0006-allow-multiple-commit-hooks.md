@@ -16,9 +16,37 @@ There may be cases where we need two completely different sets of behaviour whic
 
 For example, you may have a script that automatically adds a ticket number to the commit message.
 
+### Husky and `core.hookspath`
+
+`Husky` uses the `core.hookspath` git config option to instruct git to use its custom hooks.
+
 ## Decision
 
-The change that we're proposing or have agreed to implement.
+Use `core.hookspath` to find the path to the `commit-msg` file, and then rather than embedding the entirety of the script in there, just call another file.
+
+### Use `core.hookspath` when installing hook
+
+Now when we install the hook, we find the file to update by inspecting `core.hookspath`.
+
+```sh
+# test/installing-hooks-checks.sh
+test "it honours <core.hookspath> git configuration"
+  mkdir custom-hooks-dir
+
+  git config core.hookspath ./custom-hooks-dir
+
+  pair hooks
+
+  fileMustExist "$tempDir/custom-hooks-dir/commit-msg"
+
+  fileMustContain "#xp-mode" "$tempDir/custom-hooks-dir/commit-msg"
+
+  after_each
+```
+
+### Use script reference instead of inlining
+
+The `commit-msg` hook file may contain other behaviour that we don't want to break, so if we can add a single line then it is easier to remove.
 
 ## Consequences
 
